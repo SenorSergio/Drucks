@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-label="Druckts? 3D-Drucker Logo">
+  <rect x="6" y="6" width="208" height="208" rx="42" fill="#A6D8D2" stroke="#0E0E0E" stroke-width="9"/>
+  <g fill="none" stroke="#0E0E0E" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M54,72 L150,72 L150,166 L54,166 Z"/>
+    <path d="M54,72 L78,50 L174,50 L150,72"/>
+    <path d="M150,166 L174,144 L174,50"/>
+    <path d="M62,100 L142,100"/>
+  </g>
+  <g fill="#0E0E0E">
+    <rect x="92" y="92" width="22" height="14" rx="3"/>
+    <path d="M97,106 L113,106 L105,120 Z"/>
+  </g>
+  <rect x="86" y="150" width="38" height="10" rx="2" fill="#0E0E0E"/>
+</svg>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Druckts? — Wähle dein Design</title>
+  <meta name="description" content="Drei Design-Vorschläge für den Relaunch von druckts.ch. Wähle deine Lieblingsversion.">
+  <link rel="icon" href="assets/svg/favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#A6D8D2">
+  <meta name="robots" content="noindex">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <style>
+    body { font-family: "Inter", system-ui, sans-serif; background: var(--brand-sand); color: #16201d; }
+    h1, h2, h3, .brand { font-family: "Space Grotesk", sans-serif; }
+    .brand__q { color: var(--brand-mint-600); }
+
+    .chooser-header { padding-top: clamp(3rem, 8vw, 6rem); text-align: center; }
+    .chooser-header .brand { display: inline-flex; align-items: center; gap: .55rem; font-size: 1.3rem; font-weight: 700; margin-bottom: 2.5rem; }
+    .chooser-header .eyebrow { font-size: .82rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--brand-mint-600); margin-bottom: 1rem; }
+    .chooser-header h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); line-height: 1.02; }
+    .chooser-header p { max-width: 38rem; margin: 1.4rem auto 0; color: #5d6b66; font-size: 1.12rem; }
+
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; padding-block: clamp(3rem, 7vw, 5rem); }
+
+    .vcard { display: flex; flex-direction: column; background: #fff; border: 1px solid #e3e0d8; border-radius: 24px; overflow: hidden; transition: transform .3s var(--ease), box-shadow .3s var(--ease); }
+    .vcard:hover { transform: translateY(-8px); box-shadow: 0 30px 60px -30px rgba(22,32,29,.35); }
+
+    .preview { aspect-ratio: 16/11; position: relative; overflow: hidden; padding: 1.4rem; display: flex; flex-direction: column; justify-content: space-between; }
+    .preview__bar { display: flex; gap: .35rem; }
+    .preview__bar i { width: 10px; height: 10px; border-radius: 50%; display: block; opacity: .5; }
+    .preview__title { font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: clamp(1.4rem, 2.6vw, 2rem); line-height: 1; }
+    .preview__chips { display: flex; gap: .4rem; flex-wrap: wrap; }
+    .preview__chips span { font-size: .68rem; font-weight: 600; padding: .25rem .55rem; border-radius: 999px; }
+
+    /* V1 preview — eco clean */
+    .preview--v1 { background: linear-gradient(160deg, #fff, #e8f4f1); color: #16201d; }
+    .preview--v1 .preview__bar i { background: #16201d; }
+    .preview--v1 .preview__chips span { background: #A6D8D2; color: #16201d; }
+    /* V2 preview — bold maker */
+    .preview--v2 { background: #FFFDF7; color: #14130f; }
+    .preview--v2 .preview__title { text-transform: uppercase; }
+    .preview--v2 .preview__bar i { background: #14130f; }
+    .preview--v2 .preview__chips span { border: 1.5px solid #14130f; background: #FFC94D; }
+    .preview--v2 .blob { position: absolute; border-radius: 50%; filter: blur(28px); opacity: .6; }
+    .preview--v2 .blob.b1 { width: 130px; height: 130px; background: #A6D8D2; top: -30px; right: -20px; }
+    .preview--v2 .blob.b2 { width: 110px; height: 110px; background: #FFC94D; bottom: -40px; left: -10px; }
+    /* V3 preview — dark tech */
+    .preview--v3 { background: #0A0C0C; color: #EAF2F0; background-image: linear-gradient(rgba(127,233,221,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(127,233,221,.08) 1px, transparent 1px); background-size: 28px 28px; }
+    .preview--v3 .preview__title { background: linear-gradient(120deg, #7FE9DD, #FFC94D); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .preview--v3 .preview__bar i { background: #7FE9DD; box-shadow: 0 0 8px #7FE9DD; opacity: .8; }
+    .preview--v3 .preview__chips span { background: rgba(127,233,221,.14); border: 1px solid rgba(127,233,221,.4); color: #7FE9DD; }
+
+    .vcard__body { padding: 1.6rem; display: flex; flex-direction: column; gap: .6rem; flex: 1; }
+    .vcard__kicker { font-size: .78rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--brand-mint-600); }
+    .vcard__name { font-size: 1.45rem; }
+    .vcard__desc { color: #5d6b66; font-size: .98rem; flex: 1; }
+    .vcard__cta { margin-top: .6rem; display: inline-flex; align-items: center; justify-content: center; gap: .5rem; padding: .85rem 1.4rem; border-radius: 12px; background: #16201d; color: #fff; font-weight: 600; transition: transform .2s var(--ease); }
+    .vcard__cta:hover { transform: translateY(-2px); }
+
+    .chooser-footer { text-align: center; padding-block: 3rem 4rem; color: #5d6b66; font-size: .92rem; }
+    .chooser-footer a { color: var(--brand-mint-600); font-weight: 600; }
+
+    @media (max-width: 860px) { .grid { grid-template-columns: 1fr; max-width: 26rem; margin-inline: auto; } }
+  </style>
+</head>
+<body>
+  <header class="chooser-header">
+    <div class="container">
+      <a class="brand" href="#"><img src="assets/svg/favicon.svg" alt="" width="36" height="36"><span>Druckts<span class="brand__q">?</span></span></a>
+      <p class="eyebrow">Relaunch · 3 Design-Vorschläge</p>
+      <h1>Wähle dein Design.</h1>
+      <p>Drei komplette Entwürfe für den neuen Auftritt von druckts.ch – gleiche Inhalte, drei Persönlichkeiten. Klick dich durch und entscheide, welche Richtung am besten zu «Druckts?» passt.</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="grid">
+      <!-- V1 -->
+      <article class="vcard">
+        <a class="preview preview--v1" href="versions/v1/index.html" aria-label="Version 1 öffnen">
+          <div class="preview__bar"><i></i><i></i><i></i></div>
+          <div class="preview__title">Hi. Wir sind<br>«Druckts?»</div>
+          <div class="preview__chips"><span>☀️ Solar</span><span>🌱 PLA</span><span>🤝 Gemeinnützig</span></div>
+        </a>
+        <div class="vcard__body">
+          <span class="vcard__kicker">Version 1</span>
+          <h2 class="vcard__name">Eco Clean</h2>
+          <p class="vcard__desc">Swiss Minimal: viel Weissraum, klares Raster, warmes Off-White mit Mint. Seriös, edel, vertrauenswürdig – der zeitlose Auftritt.</p>
+          <a class="vcard__cta" href="versions/v1/index.html">Version 1 ansehen →</a>
+        </div>
+      </article>
+
+      <!-- V2 -->
+      <article class="vcard">
+        <a class="preview preview--v2" href="versions/v2/index.html" aria-label="Version 2 öffnen">
+          <span class="blob b1"></span><span class="blob b2"></span>
+          <div class="preview__bar"><i></i><i></i><i></i></div>
+          <div class="preview__title">Hi. Wir sind<br>«Druckts?»</div>
+          <div class="preview__chips"><span>☀️ Solar</span><span>🌱 PLA</span><span>🤝 Gemeinnützig</span></div>
+        </a>
+        <div class="vcard__body">
+          <span class="vcard__kicker">Version 2</span>
+          <h2 class="vcard__name">Bold Maker</h2>
+          <p class="vcard__desc">Vibrant & verspielt: fette Display-Typo, Sticker-Look, kräftige Farben und Energie. Jung, sympathisch, auffällig – die Marke zum Anfassen.</p>
+          <a class="vcard__cta" href="versions/v2/index.html">Version 2 ansehen →</a>
+        </div>
+      </article>
+
+      <!-- V3 -->
+      <article class="vcard">
+        <a class="preview preview--v3" href="versions/v3/index.html" aria-label="Version 3 öffnen">
+          <div class="preview__bar"><i></i><i></i><i></i></div>
+          <div class="preview__title">Hi. Wir sind<br>«Druckts?»</div>
+          <div class="preview__chips"><span>☀️ Solar</span><span>🌱 PLA</span><span>🤝 Gemeinnützig</span></div>
+        </a>
+        <div class="vcard__body">
+          <span class="vcard__kicker">Version 3</span>
+          <h2 class="vcard__name">Dark Tech</h2>
+          <p class="vcard__desc">Dunkel & premium: Glas-Effekte, Neon-Mint und subtiles Leuchten. Hochwertig und technisch – der 3D-Druck als Hightech-Handwerk.</p>
+          <a class="vcard__cta" href="versions/v3/index.html">Version 3 ansehen →</a>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="chooser-footer">
+    <div class="container">
+      <p>Alle drei Versionen sind voll funktionsfähig und für <a href="https://www.netlify.com" rel="noopener">Netlify</a> vorbereitet. Tipp: Der Umschalter unten in jeder Version führt schnell zurück hierher.</p>
+    </div>
+  </footer>
+</body>
+</html>

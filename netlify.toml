@@ -1,0 +1,31 @@
+# Netlify configuration — static site, no build step
+[build]
+  publish = "."
+  command = ""
+
+# Long-cache the fingerprint-free static assets (safe: text/CSS/JS are small)
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, must-revalidate"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "SAMEORIGIN"
+
+# Friendly short paths for the three design versions
+[[redirects]]
+  from = "/v1"
+  to = "/versions/v1/index.html"
+  status = 200
+[[redirects]]
+  from = "/v2"
+  to = "/versions/v2/index.html"
+  status = 200
+[[redirects]]
+  from = "/v3"
+  to = "/versions/v3/index.html"
+  status = 200
