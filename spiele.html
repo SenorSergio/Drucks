@@ -45,7 +45,7 @@
           <h1 class="section-title">Spiele.</h1>
           <p class="section-intro">
             Spielfreude zum Anfassen – komplett aus dem 3D-Drucker, aus nachhaltigem PLA
-            und mit Solarstrom gedruckt.
+            und mit Solarstrom gedruckt. Klick auf ein Produkt für alle Details.
           </p>
         </div>
       </div>
@@ -54,31 +54,21 @@
     <section class="models">
       <div class="container">
         <div class="models__grid">
-          <article class="model reveal">
+          <article class="model reveal" data-modal="m-schach" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Details zum Schachspiel ansehen">
             <div class="model__main"><img src="assets/img/schach-1.jpg" alt="3D-gedrucktes Schachspiel: schwarz-weisses Brett mit allen Figuren aufgestellt" width="900" height="900"></div>
-            <div class="model__thumbs" aria-label="Weitere Ansichten">
-              <button class="is-active" type="button" aria-label="Ansicht 1"><img src="assets/img/schach-1.jpg" alt="" loading="lazy"></button>
-              <button type="button" aria-label="Ansicht 2"><img src="assets/img/schach-2.jpg" alt="" loading="lazy"></button>
-              <button type="button" aria-label="Ansicht 3"><img src="assets/img/schach-3.jpg" alt="" loading="lazy"></button>
-              <button type="button" aria-label="Ansicht 4"><img src="assets/img/schach-4.jpg" alt="" loading="lazy"></button>
-            </div>
             <div class="model__body">
               <h3>Schachspiel</h3>
-              <p>Brett, Box und alle Figuren aus einem Guss: Die Box ist gleichzeitig das Spielbrett, innen finden sämtliche Figuren Platz. So übersteht das Spiel jeden Transport – und sieht dabei verdammt gut aus.</p>
-              <span class="product__tag">Spiel & Aufbewahrung</span>
+              <p>Brett, Box und alle Figuren aus einem Guss – die Box ist das Spielbrett.</p>
+              <span class="model__more">Details ansehen →</span>
             </div>
           </article>
 
-          <article class="model reveal" style="--reveal-delay:100ms">
+          <article class="model reveal" data-modal="m-kartenbox" style="--reveal-delay:100ms" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Details zur Kartenbox ansehen">
             <div class="model__main"><img src="assets/img/kartenbox-1.jpg" alt="3D-gedruckte Kartenbox mit Schiebedeckel" width="900" height="900"></div>
-            <div class="model__thumbs" aria-label="Weitere Ansichten">
-              <button class="is-active" type="button" aria-label="Ansicht 1"><img src="assets/img/kartenbox-1.jpg" alt="" loading="lazy"></button>
-              <button type="button" aria-label="Ansicht 2"><img src="assets/img/kartenbox-2.jpg" alt="" loading="lazy"></button>
-            </div>
             <div class="model__body">
               <h3>Kartenbox</h3>
-              <p>Schluss mit ausgeleierten Kartonschachteln: Die robuste Box mit Schiebedeckel hält dein Kartenset zusammen – ob Jass, Poker oder UNO.</p>
-              <span class="product__tag">Aufbewahrung</span>
+              <p>Die robuste Box mit Schiebedeckel für dein Kartenset.</p>
+              <span class="model__more">Details ansehen →</span>
             </div>
           </article>
         </div>
@@ -93,6 +83,64 @@
       </div>
     </section>
   </main>
+
+  <!-- ============ Detail-Dialoge ============ -->
+  <dialog class="model-modal" id="m-schach" aria-labelledby="m-schach-title">
+    <button class="model-modal__close" type="button" data-close aria-label="Schliessen">×</button>
+    <div class="model-modal__grid">
+      <div class="model-gallery">
+        <div class="model-gallery__main"><img src="assets/img/schach-1.jpg" alt="3D-gedrucktes Schachspiel mit aufgestellten Figuren"></div>
+        <div class="model__thumbs" aria-label="Weitere Ansichten">
+          <button class="is-active" type="button" aria-label="Ansicht 1"><img src="assets/img/schach-1.jpg" alt="" loading="lazy"></button>
+          <button type="button" aria-label="Ansicht 2"><img src="assets/img/schach-2.jpg" alt="" loading="lazy"></button>
+          <button type="button" aria-label="Ansicht 3"><img src="assets/img/schach-3.jpg" alt="" loading="lazy"></button>
+          <button type="button" aria-label="Ansicht 4"><img src="assets/img/schach-4.jpg" alt="" loading="lazy"></button>
+        </div>
+      </div>
+      <div class="model-modal__info">
+        <p class="eyebrow">Spiele</p>
+        <h3 id="m-schach-title">Schachspiel</h3>
+        <p>Brett, Box und alle Figuren aus einem Guss: Die Box ist gleichzeitig das
+        Spielbrett, innen finden sämtliche Figuren Platz. So übersteht das Spiel
+        jeden Transport – und sieht dabei verdammt gut aus.</p>
+        <dl class="specs">
+          <div><dt>Umfang</dt><dd>Brett-Box + alle 32 Figuren</dd></div>
+          <div><dt>Grösse</dt><dd>Masse auf Anfrage</dd></div>
+          <div><dt>Material</dt><dd>PLA, biologisch abbaubar</dd></div>
+          <div><dt>Produktion</dt><dd>100 % Solarstrom · Winterthur</dd></div>
+          <div><dt>Farben</dt><dd>auf Anfrage</dd></div>
+        </dl>
+        <a class="btn btn--solid" href="index.html#kontakt">«Schachspiel» anfragen</a>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="model-modal" id="m-kartenbox" aria-labelledby="m-kartenbox-title">
+    <button class="model-modal__close" type="button" data-close aria-label="Schliessen">×</button>
+    <div class="model-modal__grid">
+      <div class="model-gallery">
+        <div class="model-gallery__main"><img src="assets/img/kartenbox-1.jpg" alt="3D-gedruckte Kartenbox mit Schiebedeckel"></div>
+        <div class="model__thumbs" aria-label="Weitere Ansichten">
+          <button class="is-active" type="button" aria-label="Ansicht 1"><img src="assets/img/kartenbox-1.jpg" alt="" loading="lazy"></button>
+          <button type="button" aria-label="Ansicht 2"><img src="assets/img/kartenbox-2.jpg" alt="" loading="lazy"></button>
+        </div>
+      </div>
+      <div class="model-modal__info">
+        <p class="eyebrow">Spiele</p>
+        <h3 id="m-kartenbox-title">Kartenbox</h3>
+        <p>Schluss mit ausgeleierten Kartonschachteln: Die robuste Box mit
+        Schiebedeckel hält dein Kartenset zusammen – ob Jass, Poker oder UNO.</p>
+        <dl class="specs">
+          <div><dt>Passt für</dt><dd>gängige Kartensets</dd></div>
+          <div><dt>Grösse</dt><dd>Masse auf Anfrage</dd></div>
+          <div><dt>Material</dt><dd>PLA, biologisch abbaubar</dd></div>
+          <div><dt>Produktion</dt><dd>100 % Solarstrom · Winterthur</dd></div>
+          <div><dt>Farben</dt><dd>auf Anfrage</dd></div>
+        </dl>
+        <a class="btn btn--solid" href="index.html#kontakt">«Kartenbox» anfragen</a>
+      </div>
+    </div>
+  </dialog>
 
   <footer class="site-footer">
     <div class="container site-footer__grid">
@@ -121,12 +169,26 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-    document.querySelectorAll('.model').forEach(function (m) {
-      var main = m.querySelector('.model__main img');
-      m.querySelectorAll('.model__thumbs button').forEach(function (b) {
+
+    document.querySelectorAll('[data-modal]').forEach(function (card) {
+      function open() { document.getElementById(card.dataset.modal).showModal(); }
+      card.addEventListener('click', open);
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+      });
+    });
+
+    document.querySelectorAll('dialog.model-modal').forEach(function (d) {
+      d.querySelector('[data-close]').addEventListener('click', function () { d.close(); });
+      d.addEventListener('click', function (e) { if (e.target === d) d.close(); });
+    });
+
+    document.querySelectorAll('.model-gallery').forEach(function (g) {
+      var main = g.querySelector('.model-gallery__main img');
+      g.querySelectorAll('.model__thumbs button').forEach(function (b) {
         b.addEventListener('click', function () {
           main.src = b.querySelector('img').src;
-          m.querySelectorAll('.model__thumbs button').forEach(function (x) { x.classList.remove('is-active'); });
+          g.querySelectorAll('.model__thumbs button').forEach(function (x) { x.classList.remove('is-active'); });
           b.classList.add('is-active');
         });
       });

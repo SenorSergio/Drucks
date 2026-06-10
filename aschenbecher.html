@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Aschenbecher — Druckts?</title>
-  <meta name="description" content="Sechs 3D-gedruckte Aschenbecher-Modelle aus nachhaltigem PLA – für unterwegs und zuhause. Gedruckt mit Solarstrom in Winterthur.">
+  <meta name="description" content="3D-gedruckte Aschenbecher aus nachhaltigem PLA: die Itinerants für unterwegs und die Homeys für zuhause. Gedruckt mit Solarstrom in Winterthur.">
   <link rel="icon" href="assets/svg/favicon.svg" type="image/svg+xml">
   <meta name="theme-color" content="#A6D8D2">
 
@@ -44,135 +44,86 @@
           <p class="eyebrow">Produkte · Sortiment</p>
           <h1 class="section-title">Aschenbecher.</h1>
           <p class="section-intro">
-            Sechs Modelle, ein Prinzip: Asche bleibt drin, Natur bleibt sauber.
-            Alle aus nachhaltigem PLA, gedruckt mit Solarstrom in Winterthur.
+            Ein Prinzip: Asche bleibt drin, Natur bleibt sauber. Alle Modelle aus
+            nachhaltigem PLA, gedruckt mit Solarstrom in Winterthur.
+            Klick auf ein Modell für alle Details.
           </p>
         </div>
       </div>
     </section>
 
-    <section class="models" aria-labelledby="unterwegs">
+    <!-- ============ Itinerants ============ -->
+    <section class="models" aria-labelledby="itinerants">
       <div class="container">
-        <h2 class="models__group-title reveal" id="unterwegs">Für unterwegs 🎒</h2>
+        <h2 class="models__group-title reveal" id="itinerants">Itinerants — für unterwegs 🎒</h2>
+        <p class="models__group-intro reveal">
+          Ein Modell, drei Grössen: Explorer, Adventurer und Traveler sind derselbe
+          Taschenbecher in S, M und L – dank Henkel überall anzuhängen. Der Puck kommt
+          ohne Henkel aus und passt flach in jede Tasche.
+        </p>
         <div class="models__grid">
-          <article class="model reveal">
-            <div class="model__main"><img src="assets/img/adventurer-1.jpg" alt="Taschenaschenbecher «Adventurer» mit Henkel-Deckel" width="900" height="900"></div>
-            <div class="model__thumbs" aria-label="Weitere Ansichten">
-              <button class="is-active" type="button" aria-label="Ansicht 1"><img src="assets/img/adventurer-1.jpg" alt="" loading="lazy"></button>
-              <button type="button" aria-label="Ansicht 2"><img src="assets/img/adventurer-2.jpg" alt="" loading="lazy"></button>
-              <button type="button" aria-label="Ansicht 3"><img src="assets/img/adventurer-3.jpg" alt="" loading="lazy"></button>
-            </div>
-            <div class="model__body">
-              <h3>Adventurer</h3>
-              <p>Der Begleiter für jedes Abenteuer: dicht schliessender Deckel mit Henkel – einfach an Rucksack oder Schlüsselbund hängen.</p>
-              <span class="product__tag">Für unterwegs</span>
-            </div>
-          </article>
-
-          <article class="model reveal" style="--reveal-delay:100ms">
-            <div class="model__main"><img src="assets/img/explorer-1.jpg" alt="Taschenaschenbecher «Explorer» mit Drehdeckel" width="900" height="900"></div>
-            <div class="model__thumbs" aria-label="Weitere Ansichten">
-              <button class="is-active" type="button" aria-label="Ansicht 1"><img src="assets/img/explorer-1.jpg" alt="" loading="lazy"></button>
-              <button type="button" aria-label="Ansicht 2"><img src="assets/img/explorer-2.jpg" alt="" loading="lazy"></button>
-              <button type="button" aria-label="Ansicht 3"><img src="assets/img/explorer-3.jpg" alt="" loading="lazy"></button>
-            </div>
+          <article class="model reveal" data-modal="m-explorer" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Details zum Explorer ansehen">
+            <div class="model__main"><img src="assets/img/explorer-1.jpg" alt="Taschenaschenbecher «Explorer»" width="900" height="900"></div>
             <div class="model__body">
               <h3>Explorer</h3>
-              <p>Der schlanke Taschenascher mit verschliessbarem Deckel – unauffällig in Jacke oder Hosentasche, mit eingraviertem Logo.</p>
-              <span class="product__tag">Für unterwegs</span>
+              <p>Der Kleinste fürs Minimalgepäck – passt in jede Hosentasche.</p>
+              <span class="model__more">Details ansehen →</span>
             </div>
           </article>
 
-          <article class="model reveal" style="--reveal-delay:200ms">
-            <div class="model__main"><img src="assets/img/traveler-1.jpg" alt="Aschenbecher «Traveler» mit Deckel" width="900" height="900"></div>
-            <div class="model__thumbs" aria-label="Weitere Ansichten">
-              <button class="is-active" type="button" aria-label="Ansicht 1"><img src="assets/img/traveler-1.jpg" alt="" loading="lazy"></button>
-              <button type="button" aria-label="Ansicht 2"><img src="assets/img/traveler-2.jpg" alt="" loading="lazy"></button>
+          <article class="model reveal" data-modal="m-adventurer" style="--reveal-delay:100ms" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Details zum Adventurer ansehen">
+            <div class="model__main"><img src="assets/img/adventurer-1.jpg" alt="Taschenaschenbecher «Adventurer»" width="900" height="900"></div>
+            <div class="model__body">
+              <h3>Adventurer</h3>
+              <p>Die goldene Mitte – der Allrounder für jedes Abenteuer.</p>
+              <span class="model__more">Details ansehen →</span>
             </div>
+          </article>
+
+          <article class="model reveal" data-modal="m-traveler" style="--reveal-delay:200ms" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Details zum Traveler ansehen">
+            <div class="model__main"><img src="assets/img/traveler-1.jpg" alt="Taschenaschenbecher «Traveler»" width="900" height="900"></div>
             <div class="model__body">
               <h3>Traveler</h3>
-              <p>Das grösste Modell für unterwegs: viel Volumen und ein sicher schliessender Deckel – ideal für lange Touren und Festivals.</p>
-              <span class="product__tag">Für unterwegs</span>
+              <p>Der Grösste – viel Volumen für lange Touren und Festivals.</p>
+              <span class="model__more">Details ansehen →</span>
             </div>
           </article>
-        </div>
-      </div>
-    </section>
 
-    <section class="models" aria-labelledby="zuhause">
-      <div class="container">
-        <h2 class="models__group-title reveal" id="zuhause">Für zuhause 🏠</h2>
-        <div class="models__grid">
-          <article class="model reveal">
-            <div class="model__main"><img src="assets/img/puck-1.jpg" alt="Flacher Tischaschenbecher «Puck» mit Einsatz" width="900" height="900"></div>
-            <div class="model__thumbs" aria-label="Weitere Ansichten">
-              <button class="is-active" type="button" aria-label="Ansicht 1"><img src="assets/img/puck-1.jpg" alt="" loading="lazy"></button>
-              <button type="button" aria-label="Ansicht 2"><img src="assets/img/puck-2.jpg" alt="" loading="lazy"></button>
-            </div>
+          <article class="model reveal" data-modal="m-puck" style="--reveal-delay:300ms" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Details zum Puck ansehen">
+            <div class="model__main"><img src="assets/img/puck-1.jpg" alt="Flacher Taschenaschenbecher «Puck»" width="900" height="900"></div>
             <div class="model__body">
               <h3>Puck</h3>
-              <p>Flach wie ein Eishockey-Puck: der dezente Tischascher mit herausnehmbarem Einsatz und Ablagekerben.</p>
-              <span class="product__tag">Für zuhause</span>
-            </div>
-          </article>
-
-          <article class="model reveal" style="--reveal-delay:100ms">
-            <div class="model__main"><img src="assets/img/home1-1.jpg" alt="Aschenbecher «Home 1.0» mit Einsatz" width="900" height="900"></div>
-            <div class="model__thumbs" aria-label="Weitere Ansichten">
-              <button class="is-active" type="button" aria-label="Ansicht 1"><img src="assets/img/home1-1.jpg" alt="" loading="lazy"></button>
-              <button type="button" aria-label="Ansicht 2"><img src="assets/img/home1-2.jpg" alt="" loading="lazy"></button>
-            </div>
-            <div class="model__body">
-              <h3>Home 1.0</h3>
-              <p>Der Klassiker für Balkon und Garten – mit abnehmbarem Einsatz, der Wind und Blicke fernhält.</p>
-              <span class="product__tag">Für zuhause</span>
-            </div>
-          </article>
-
-          <article class="model reveal" style="--reveal-delay:200ms">
-            <div class="model__main"><img src="assets/img/home2-1.jpg" alt="Grosser Aschenbecher «Home 2.0» mit Deckel" width="900" height="900"></div>
-            <div class="model__thumbs" aria-label="Weitere Ansichten">
-              <button class="is-active" type="button" aria-label="Ansicht 1"><img src="assets/img/home2-1.jpg" alt="" loading="lazy"></button>
-              <button type="button" aria-label="Ansicht 2"><img src="assets/img/home2-2.jpg" alt="" loading="lazy"></button>
-            </div>
-            <div class="model__body">
-              <h3>Home 2.0</h3>
-              <p>Die grosse Version mit Deckel: schliesst Gerüche zuverlässig ein und macht auf jedem Tisch eine gute Figur.</p>
-              <span class="product__tag">Für zuhause</span>
+              <p>Flach und ohne Henkel – verschwindet unauffällig in der Tasche.</p>
+              <span class="model__more">Details ansehen →</span>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="models" aria-labelledby="sets">
+    <!-- ============ Homeys ============ -->
+    <section class="models" aria-labelledby="homeys">
       <div class="container">
-        <h2 class="models__group-title reveal" id="sets">Im Set 🤝</h2>
+        <h2 class="models__group-title reveal" id="homeys">Homeys — für zuhause 🏠</h2>
+        <p class="models__group-intro reveal">
+          Die Standbecher für Balkon, Garten und Stammtisch – gemacht, um zu bleiben.
+        </p>
         <div class="models__grid">
-          <article class="model reveal">
-            <div class="model__main"><img src="assets/img/set-itinerants.jpg" alt="Set «Itinerants»: drei Taschenaschenbecher in verschiedenen Grössen" width="900" height="900"></div>
+          <article class="model reveal" data-modal="m-home1" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Details zum Home 1.0 ansehen">
+            <div class="model__main"><img src="assets/img/home1-1.jpg" alt="Aschenbecher «Home 1.0» mit Einsatz" width="900" height="900"></div>
             <div class="model__body">
-              <h3>Itinerants</h3>
-              <p>Das Trio für unterwegs: Explorer, Adventurer und Traveler im Set – für jede Tour der passende Begleiter.</p>
-              <span class="product__tag">Set</span>
+              <h3>Home 1.0</h3>
+              <p>Der Klassiker mit herausnehmbarem Einsatz und Ablagekerben.</p>
+              <span class="model__more">Details ansehen →</span>
             </div>
           </article>
 
-          <article class="model reveal" style="--reveal-delay:100ms">
-            <div class="model__main"><img src="assets/img/set-homeys.jpg" alt="Set «Homeys»: zwei Aschenbecher für zuhause" width="900" height="900"></div>
+          <article class="model reveal" data-modal="m-home2" style="--reveal-delay:100ms" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Details zum Home 2.0 ansehen">
+            <div class="model__main"><img src="assets/img/home2-1.jpg" alt="Grosser Aschenbecher «Home 2.0» mit Deckel" width="900" height="900"></div>
             <div class="model__body">
-              <h3>Homeys</h3>
-              <p>Das Duo für zuhause – drinnen wie draussen immer ein sauberer Platz für die Asche.</p>
-              <span class="product__tag">Set</span>
-            </div>
-          </article>
-
-          <article class="model reveal" style="--reveal-delay:200ms">
-            <div class="model__main"><img src="assets/img/set-trayfam.jpg" alt="Set «TrayFam»: die ganze Aschenbecher-Familie" width="900" height="900"></div>
-            <div class="model__body">
-              <h3>TrayFam</h3>
-              <p>Die ganze Familie in einem Set – für alle, die sich nicht entscheiden wollen.</p>
-              <span class="product__tag">Set</span>
+              <h3>Home 2.0</h3>
+              <p>Die grosse Version mit Deckel – schliesst Gerüche zuverlässig ein.</p>
+              <span class="model__more">Details ansehen →</span>
             </div>
           </article>
         </div>
@@ -187,6 +138,178 @@
       </div>
     </section>
   </main>
+
+  <!-- ============ Detail-Dialoge ============ -->
+  <dialog class="model-modal" id="m-explorer" aria-labelledby="m-explorer-title">
+    <button class="model-modal__close" type="button" data-close aria-label="Schliessen">×</button>
+    <div class="model-modal__grid">
+      <div class="model-gallery">
+        <div class="model-gallery__main"><img src="assets/img/explorer-1.jpg" alt="Taschenaschenbecher «Explorer»"></div>
+        <div class="model__thumbs" aria-label="Weitere Ansichten">
+          <button class="is-active" type="button" aria-label="Ansicht 1"><img src="assets/img/explorer-1.jpg" alt="" loading="lazy"></button>
+          <button type="button" aria-label="Ansicht 2"><img src="assets/img/explorer-2.jpg" alt="" loading="lazy"></button>
+          <button type="button" aria-label="Ansicht 3"><img src="assets/img/explorer-3.jpg" alt="" loading="lazy"></button>
+          <button type="button" aria-label="Grössenvergleich"><img src="assets/img/set-itinerants.jpg" alt="" loading="lazy"></button>
+        </div>
+      </div>
+      <div class="model-modal__info">
+        <p class="eyebrow">Itinerants · Grösse S</p>
+        <h3 id="m-explorer-title">Explorer</h3>
+        <p>Die kleinste Grösse der Itinerants: Der Explorer begleitet dich aufs
+        Minimalste reduziert – Deckel drauf, an den Rucksack gehängt, fertig.
+        Asche und Geruch bleiben sicher drin.</p>
+        <dl class="specs">
+          <div><dt>Grösse</dt><dd>S – der Kleinste (Masse auf Anfrage)</dd></div>
+          <div><dt>Henkel</dt><dd>Ja – zum Anhängen an Rucksack & Co.</dd></div>
+          <div><dt>Material</dt><dd>PLA, biologisch abbaubar</dd></div>
+          <div><dt>Produktion</dt><dd>100 % Solarstrom · Winterthur</dd></div>
+          <div><dt>Farben</dt><dd>auf Anfrage</dd></div>
+        </dl>
+        <a class="btn btn--solid" href="index.html#kontakt">«Explorer» anfragen</a>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="model-modal" id="m-adventurer" aria-labelledby="m-adventurer-title">
+    <button class="model-modal__close" type="button" data-close aria-label="Schliessen">×</button>
+    <div class="model-modal__grid">
+      <div class="model-gallery">
+        <div class="model-gallery__main"><img src="assets/img/adventurer-1.jpg" alt="Taschenaschenbecher «Adventurer»"></div>
+        <div class="model__thumbs" aria-label="Weitere Ansichten">
+          <button class="is-active" type="button" aria-label="Ansicht 1"><img src="assets/img/adventurer-1.jpg" alt="" loading="lazy"></button>
+          <button type="button" aria-label="Ansicht 2"><img src="assets/img/adventurer-2.jpg" alt="" loading="lazy"></button>
+          <button type="button" aria-label="Ansicht 3"><img src="assets/img/adventurer-3.jpg" alt="" loading="lazy"></button>
+          <button type="button" aria-label="Grössenvergleich"><img src="assets/img/set-itinerants.jpg" alt="" loading="lazy"></button>
+        </div>
+      </div>
+      <div class="model-modal__info">
+        <p class="eyebrow">Itinerants · Grösse M</p>
+        <h3 id="m-adventurer-title">Adventurer</h3>
+        <p>Die goldene Mitte: gross genug für den ganzen Tag, klein genug für jede
+        Jackentasche. Mit dicht schliessendem Henkel-Deckel für unterwegs –
+        der Allrounder unter den Itinerants.</p>
+        <dl class="specs">
+          <div><dt>Grösse</dt><dd>M – die Mitte (Masse auf Anfrage)</dd></div>
+          <div><dt>Henkel</dt><dd>Ja – zum Anhängen an Rucksack & Co.</dd></div>
+          <div><dt>Material</dt><dd>PLA, biologisch abbaubar</dd></div>
+          <div><dt>Produktion</dt><dd>100 % Solarstrom · Winterthur</dd></div>
+          <div><dt>Farben</dt><dd>auf Anfrage</dd></div>
+        </dl>
+        <a class="btn btn--solid" href="index.html#kontakt">«Adventurer» anfragen</a>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="model-modal" id="m-traveler" aria-labelledby="m-traveler-title">
+    <button class="model-modal__close" type="button" data-close aria-label="Schliessen">×</button>
+    <div class="model-modal__grid">
+      <div class="model-gallery">
+        <div class="model-gallery__main"><img src="assets/img/traveler-1.jpg" alt="Taschenaschenbecher «Traveler»"></div>
+        <div class="model__thumbs" aria-label="Weitere Ansichten">
+          <button class="is-active" type="button" aria-label="Ansicht 1"><img src="assets/img/traveler-1.jpg" alt="" loading="lazy"></button>
+          <button type="button" aria-label="Ansicht 2"><img src="assets/img/traveler-2.jpg" alt="" loading="lazy"></button>
+          <button type="button" aria-label="Grössenvergleich"><img src="assets/img/set-itinerants.jpg" alt="" loading="lazy"></button>
+        </div>
+      </div>
+      <div class="model-modal__info">
+        <p class="eyebrow">Itinerants · Grösse L</p>
+        <h3 id="m-traveler-title">Traveler</h3>
+        <p>Die grösste Grösse der Itinerants: viel Volumen für lange Touren,
+        Festivals und alle, die nicht ständig leeren wollen. Sicher verschlossen
+        und dank Henkel trotzdem überall dabei.</p>
+        <dl class="specs">
+          <div><dt>Grösse</dt><dd>L – der Grösste (Masse auf Anfrage)</dd></div>
+          <div><dt>Henkel</dt><dd>Ja – zum Anhängen an Rucksack & Co.</dd></div>
+          <div><dt>Material</dt><dd>PLA, biologisch abbaubar</dd></div>
+          <div><dt>Produktion</dt><dd>100 % Solarstrom · Winterthur</dd></div>
+          <div><dt>Farben</dt><dd>auf Anfrage</dd></div>
+        </dl>
+        <a class="btn btn--solid" href="index.html#kontakt">«Traveler» anfragen</a>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="model-modal" id="m-puck" aria-labelledby="m-puck-title">
+    <button class="model-modal__close" type="button" data-close aria-label="Schliessen">×</button>
+    <div class="model-modal__grid">
+      <div class="model-gallery">
+        <div class="model-gallery__main"><img src="assets/img/puck-1.jpg" alt="Flacher Taschenaschenbecher «Puck»"></div>
+        <div class="model__thumbs" aria-label="Weitere Ansichten">
+          <button class="is-active" type="button" aria-label="Ansicht 1"><img src="assets/img/puck-1.jpg" alt="" loading="lazy"></button>
+          <button type="button" aria-label="Ansicht 2"><img src="assets/img/puck-2.jpg" alt="" loading="lazy"></button>
+        </div>
+      </div>
+      <div class="model-modal__info">
+        <p class="eyebrow">Itinerants · ohne Henkel</p>
+        <h3 id="m-puck-title">Puck</h3>
+        <p>Flach wie ein Eishockey-Puck: Der Puck ist für unterwegs gemacht, kommt
+        aber ohne Henkel aus – er verschwindet unauffällig in Hand- oder
+        Hosentasche, statt aussen angehängt zu werden.</p>
+        <dl class="specs">
+          <div><dt>Grösse</dt><dd>flach & kompakt (Masse auf Anfrage)</dd></div>
+          <div><dt>Henkel</dt><dd>Nein – gemacht für die Tasche</dd></div>
+          <div><dt>Material</dt><dd>PLA, biologisch abbaubar</dd></div>
+          <div><dt>Produktion</dt><dd>100 % Solarstrom · Winterthur</dd></div>
+          <div><dt>Farben</dt><dd>auf Anfrage</dd></div>
+        </dl>
+        <a class="btn btn--solid" href="index.html#kontakt">«Puck» anfragen</a>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="model-modal" id="m-home1" aria-labelledby="m-home1-title">
+    <button class="model-modal__close" type="button" data-close aria-label="Schliessen">×</button>
+    <div class="model-modal__grid">
+      <div class="model-gallery">
+        <div class="model-gallery__main"><img src="assets/img/home1-1.jpg" alt="Aschenbecher «Home 1.0» mit Einsatz"></div>
+        <div class="model__thumbs" aria-label="Weitere Ansichten">
+          <button class="is-active" type="button" aria-label="Ansicht 1"><img src="assets/img/home1-1.jpg" alt="" loading="lazy"></button>
+          <button type="button" aria-label="Ansicht 2"><img src="assets/img/home1-2.jpg" alt="" loading="lazy"></button>
+        </div>
+      </div>
+      <div class="model-modal__info">
+        <p class="eyebrow">Homeys · für zuhause</p>
+        <h3 id="m-home1-title">Home 1.0</h3>
+        <p>Der Klassiker für Balkon, Garten und Stammtisch: Der herausnehmbare
+        Einsatz mit Ablagekerben macht das Leeren einfach und hält den Tisch sauber.</p>
+        <dl class="specs">
+          <div><dt>Grösse</dt><dd>Standbecher (Masse auf Anfrage)</dd></div>
+          <div><dt>Einsatz</dt><dd>herausnehmbar, mit Ablagekerben</dd></div>
+          <div><dt>Material</dt><dd>PLA, biologisch abbaubar</dd></div>
+          <div><dt>Produktion</dt><dd>100 % Solarstrom · Winterthur</dd></div>
+          <div><dt>Farben</dt><dd>auf Anfrage</dd></div>
+        </dl>
+        <a class="btn btn--solid" href="index.html#kontakt">«Home 1.0» anfragen</a>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="model-modal" id="m-home2" aria-labelledby="m-home2-title">
+    <button class="model-modal__close" type="button" data-close aria-label="Schliessen">×</button>
+    <div class="model-modal__grid">
+      <div class="model-gallery">
+        <div class="model-gallery__main"><img src="assets/img/home2-1.jpg" alt="Grosser Aschenbecher «Home 2.0» mit Deckel"></div>
+        <div class="model__thumbs" aria-label="Weitere Ansichten">
+          <button class="is-active" type="button" aria-label="Ansicht 1"><img src="assets/img/home2-1.jpg" alt="" loading="lazy"></button>
+          <button type="button" aria-label="Ansicht 2"><img src="assets/img/home2-2.jpg" alt="" loading="lazy"></button>
+        </div>
+      </div>
+      <div class="model-modal__info">
+        <p class="eyebrow">Homeys · für zuhause</p>
+        <h3 id="m-home2-title">Home 2.0</h3>
+        <p>Die grosse Version mit Deckel: schliesst Gerüche zuverlässig ein, fasst
+        deutlich mehr und macht auf jedem Tisch eine gute Figur – drinnen wie draussen.</p>
+        <dl class="specs">
+          <div><dt>Grösse</dt><dd>grosser Standbecher (Masse auf Anfrage)</dd></div>
+          <div><dt>Deckel</dt><dd>Ja – gegen Geruch und Wind</dd></div>
+          <div><dt>Material</dt><dd>PLA, biologisch abbaubar</dd></div>
+          <div><dt>Produktion</dt><dd>100 % Solarstrom · Winterthur</dd></div>
+          <div><dt>Farben</dt><dd>auf Anfrage</dd></div>
+        </dl>
+        <a class="btn btn--solid" href="index.html#kontakt">«Home 2.0» anfragen</a>
+      </div>
+    </div>
+  </dialog>
 
   <footer class="site-footer">
     <div class="container site-footer__grid">
@@ -215,12 +338,29 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-    document.querySelectorAll('.model').forEach(function (m) {
-      var main = m.querySelector('.model__main img');
-      m.querySelectorAll('.model__thumbs button').forEach(function (b) {
+
+    // Open product detail dialog on card click / Enter / Space
+    document.querySelectorAll('[data-modal]').forEach(function (card) {
+      function open() { document.getElementById(card.dataset.modal).showModal(); }
+      card.addEventListener('click', open);
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+      });
+    });
+
+    // Close button + click on backdrop
+    document.querySelectorAll('dialog.model-modal').forEach(function (d) {
+      d.querySelector('[data-close]').addEventListener('click', function () { d.close(); });
+      d.addEventListener('click', function (e) { if (e.target === d) d.close(); });
+    });
+
+    // Gallery: thumbnails swap the main image
+    document.querySelectorAll('.model-gallery').forEach(function (g) {
+      var main = g.querySelector('.model-gallery__main img');
+      g.querySelectorAll('.model__thumbs button').forEach(function (b) {
         b.addEventListener('click', function () {
           main.src = b.querySelector('img').src;
-          m.querySelectorAll('.model__thumbs button').forEach(function (x) { x.classList.remove('is-active'); });
+          g.querySelectorAll('.model__thumbs button').forEach(function (x) { x.classList.remove('is-active'); });
           b.classList.add('is-active');
         });
       });

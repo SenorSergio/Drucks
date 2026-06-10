@@ -158,7 +158,30 @@ a.product { display: block; color: inherit; }
 .model__body .product__tag { align-self: flex-start; }
 .models-cta { background: var(--surface); padding-block: clamp(3rem, 7vw, 5rem); text-align: center; }
 .models-cta p { color: var(--muted); margin: .9rem auto 1.8rem; max-width: 34rem; }
-@media (max-width: 900px) { .models__grid { grid-template-columns: 1fr; } }
+.models__group-intro { color: var(--muted); max-width: 42rem; margin: -1rem 0 1.8rem; }
+.model[data-modal] { cursor: pointer; }
+.model[data-modal]:focus-visible { outline: 3px solid var(--accent-deep); outline-offset: 3px; }
+.model__more { color: var(--accent-deep); font-weight: 600; font-size: .92rem; }
+
+/* ---------- Model detail dialog ---------- */
+.model-modal { border: 0; border-radius: 24px; padding: 0; width: min(880px, calc(100vw - 2rem)); max-height: calc(100vh - 3rem); overflow: auto; box-shadow: 0 40px 80px -30px rgba(22,32,29,.5); }
+.model-modal::backdrop { background: rgba(22,32,29,.55); }
+.model-modal__grid { display: grid; grid-template-columns: 1fr 1.05fr; }
+.model-gallery { background: #fff; }
+.model-gallery__main { aspect-ratio: 1; overflow: hidden; }
+.model-gallery__main img { width: 100%; height: 100%; object-fit: cover; }
+.model-gallery .model__thumbs { padding: .8rem; }
+.model-modal__info { padding: clamp(1.6rem, 4vw, 2.4rem); display: flex; flex-direction: column; align-items: flex-start; gap: .6rem; background: var(--brand-sand); }
+.model-modal__info .eyebrow { margin-bottom: 0; }
+.model-modal__info h3 { font-size: clamp(1.6rem, 3vw, 2.1rem); }
+.model-modal__info > p { color: var(--muted); }
+.specs { display: grid; gap: .55rem; margin: .8rem 0 1.4rem; width: 100%; }
+.specs > div { display: grid; grid-template-columns: 110px 1fr; gap: .8rem; padding-bottom: .55rem; border-bottom: 1px solid var(--line); }
+.specs dt { font-weight: 600; font-size: .9rem; }
+.specs dd { color: var(--muted); font-size: .95rem; }
+.model-modal__close { position: absolute; top: .9rem; right: .9rem; z-index: 2; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,.92); border: 1px solid var(--line); font-size: 1.4rem; line-height: 1; cursor: pointer; transition: transform .2s var(--ease); }
+.model-modal__close:hover { transform: scale(1.08); }
+@media (max-width: 900px) { .models__grid { grid-template-columns: 1fr; } .model-modal__grid { grid-template-columns: 1fr; } }
 
 /* ---------- Team ---------- */
 .team__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
