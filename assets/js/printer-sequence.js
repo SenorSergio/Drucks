@@ -1,17 +1,21 @@
 /* ============================================================
-   Druckts? — sequential 3D-printer animation
-   "Create your own product" motif: a clean line-art printer that
-   rapidly prints object after object on a loop — house, tree,
-   star and the poo emoji — then ejects each finished part.
+   Druckts? — sequential 3D-printer animation (V1 · Eco Clean)
+   "Create your own product" motif: a clean line-art gantry
+   printer that prints object after object on a loop — seedling,
+   gear, tree and the poo emoji — layer by layer (bottom-up
+   reveal), then ejects each finished part. The sun sits in the
+   background sky and feeds the printer via a dotted energy
+   line: we print with solar power.
 
-   Drop-in & self-contained: it injects its own scoped <style> and
-   an inline SVG into every [data-printer-sequence] element, and
-   plays only when scrolled into view. Honours prefers-reduced-motion.
-   Colours follow the existing brand theme vars when present:
+   Drop-in & self-contained: it injects its own scoped <style>
+   and an inline SVG into every [data-printer-sequence] element,
+   and plays only when scrolled into view. Honours
+   prefers-reduced-motion. Colours follow the brand theme vars:
      --pr-stroke   outline colour
-     --pr-object   default object fill
-     --pr-accent   nozzle / hot-layer / star
-   plus optional overrides: --seq-leaf --seq-bark --seq-roof --seq-poo
+     --pr-object   default object fill (mint)
+     --pr-accent   nozzle / hot-layer / sun (solar yellow)
+   plus optional overrides: --seq-leaf --seq-bark --seq-poo
+   --seq-surface
    ============================================================ */
 (function () {
   "use strict";
@@ -23,40 +27,68 @@
   var canAnimate = typeof Element !== "undefined" &&
     typeof Element.prototype.animate === "function";
 
-  /* ---- the objects that get printed, in cycle order ---- */
+  /* ---- the objects that get printed, in cycle order ----
+     top = y-coordinate of the object's highest point, so the
+     nozzle finishes exactly at the top of the part. */
   var OBJECTS = [
-    { name: "house", top: 106 },
-    { name: "tree",  top: 114 },
-    { name: "star",  top: 108 },
-    { name: "poo",   top: 113 }   // the obligatory crowd-pleaser
+    { name: "sprout", top: 114 },
+    { name: "gear",   top: 114 },
+    { name: "tree",   top: 116 },
+    { name: "poo",    top: 116 }   // the obligatory crowd-pleaser
   ];
-  var POO_INDEX = 3;
+  var STATIC_INDEX = 0;            // shown when motion is reduced
+  var BED_Y = 182;                 // top surface of the print bed
 
   /* ---- scoped styles (injected once) ---- */
   var CSS = [
     ".seq-printer{width:100%;height:auto;overflow:visible;display:block}",
     ".seq-printer [stroke]{vector-effect:non-scaling-stroke}",
-    ".seq-frame,.seq-rail,.seq-beam,.seq-bed{fill:none;stroke:var(--pr-stroke,#0E0E0E);",
-      "stroke-width:3;stroke-linecap:round;stroke-linejoin:round}",
-    ".seq-frame{stroke-width:3.4}.seq-bed{stroke-width:4.6}",
-    ".seq-draw{stroke-dasharray:var(--len,1600);stroke-dashoffset:var(--len,1600)}",
-    ".seq-printer.is-live .seq-draw{animation:seq-draw 1.5s cubic-bezier(.22,1,.36,1) forwards}",
-    "@keyframes seq-draw{to{stroke-dashoffset:0}}",
-    ".seq-head-x{animation:seq-osc .5s ease-in-out infinite alternate}",
-    "@keyframes seq-osc{from{transform:translateX(-19px)}to{transform:translateX(19px)}}",
-    ".seq-carriage{fill:var(--seq-surface,#fff);stroke:var(--pr-stroke,#0E0E0E);stroke-width:3}",
-    ".seq-nozzle,.seq-glow{fill:var(--pr-accent,#FFC94D)}",
+    /* static frame: white-filled line art */
+    ".seq-frame{fill:var(--seq-surface,#fff);stroke:var(--pr-stroke,#16201d);",
+      "stroke-width:3;stroke-linejoin:round;stroke-linecap:round}",
+    ".seq-detail{fill:none;stroke:var(--pr-stroke,#16201d);stroke-width:2.4;",
+      "stroke-linecap:round;stroke-linejoin:round}",
+    /* draw-on intro */
+    ".seq-draw{stroke-dasharray:var(--len,600);stroke-dashoffset:var(--len,600);fill-opacity:0}",
+    ".seq-printer.is-live .seq-draw{animation:seq-drawline 1.1s cubic-bezier(.4,0,.2,1) forwards,",
+      "seq-fillin .45s ease .6s forwards}",
+    "@keyframes seq-drawline{to{stroke-dashoffset:0}}",
+    "@keyframes seq-fillin{to{fill-opacity:1}}",
+    /* moving gantry + tool head */
+    ".seq-head-y{opacity:0}",
+    ".seq-printer.is-live .seq-head-y{animation:seq-fadein .5s ease .85s forwards}",
+    "@keyframes seq-fadein{to{opacity:1}}",
+    ".seq-beam,.seq-slider,.seq-carriage{fill:var(--seq-surface,#fff);",
+      "stroke:var(--pr-stroke,#16201d);stroke-width:3}",
+    ".seq-head-x{animation:seq-osc .55s ease-in-out infinite alternate}",
+    "@keyframes seq-osc{from{transform:translateX(-34px)}to{transform:translateX(34px)}}",
+    ".seq-printer.seq-idle .seq-head-x{animation-play-state:paused}",
+    ".seq-nozzle{fill:var(--pr-accent,#FFC94D);stroke:var(--pr-stroke,#16201d);",
+      "stroke-width:2.4;stroke-linejoin:round}",
+    ".seq-glow{fill:var(--pr-accent,#FFC94D);animation:seq-pulse .5s ease-in-out infinite alternate}",
+    ".seq-printer.seq-idle .seq-glow{animation-play-state:paused;opacity:.3}",
+    "@keyframes seq-pulse{from{opacity:.35}to{opacity:1}}",
+    /* hot layer line */
     ".seq-line{stroke:var(--pr-accent,#FFC94D);stroke-width:2.6;stroke-linecap:round}",
-    ".seq-obj{transform-box:fill-box;transform-origin:center bottom;will-change:transform,opacity}",
+    /* printed objects */
+    ".seq-obj{will-change:clip-path,transform,opacity}",
     ".seq-obj path,.seq-obj rect,.seq-obj circle,.seq-obj ellipse{",
-      "stroke:var(--pr-stroke,#0E0E0E);stroke-width:3;stroke-linejoin:round;stroke-linecap:round}",
+      "stroke:var(--pr-stroke,#16201d);stroke-width:3;stroke-linejoin:round;stroke-linecap:round}",
     ".seq-obj .nofill{fill:none}",
+    /* background sun = solar power */
     ".seq-sun{transform-box:fill-box;transform-origin:center}",
-    ".seq-printer.is-live .seq-sun{animation:seq-spin 16s linear infinite}",
+    ".seq-printer.is-live .seq-sun{animation:seq-spin 24s linear infinite}",
     "@keyframes seq-spin{to{transform:rotate(360deg)}}",
+    ".seq-energy{fill:none;stroke:var(--pr-accent,#FFC94D);stroke-width:2.4;",
+      "stroke-linecap:round;stroke-dasharray:.1 7}",
+    ".seq-printer.is-live .seq-energy{animation:seq-flow .9s linear infinite}",
+    "@keyframes seq-flow{to{stroke-dashoffset:-7.1}}",
+    /* reduced motion: show everything, move nothing */
     "@media (prefers-reduced-motion: reduce){",
-      ".seq-printer .seq-draw{stroke-dashoffset:0}",
-      ".seq-printer.is-live .seq-head-x,.seq-printer.is-live .seq-sun{animation:none}}"
+      ".seq-printer .seq-draw{stroke-dashoffset:0;fill-opacity:1;animation:none}",
+      ".seq-printer .seq-head-y{opacity:1;animation:none}",
+      ".seq-printer.is-live .seq-head-x,.seq-printer.is-live .seq-sun,",
+      ".seq-printer.is-live .seq-energy,.seq-printer.is-live .seq-glow{animation:none}}"
   ].join("");
 
   function injectStyles() {
@@ -67,89 +99,129 @@
     (document.head || document.documentElement).appendChild(s);
   }
 
-  /* ---- object artwork (clean line-art) ---- */
-  function houseSVG() {
-    return '<g class="seq-obj" data-name="house" style="display:none">' +
-      '<rect x="98" y="132" width="44" height="46" rx="2" fill="var(--pr-object,#A6D8D2)"/>' +
-      '<path d="M92,134 L148,134 L120,106 Z" fill="var(--seq-roof,var(--pr-accent,#FFC94D))"/>' +
-      '<rect x="111" y="152" width="16" height="26" rx="1.5" fill="var(--seq-surface,#fff)"/>' +
-      '<rect x="103" y="141" width="11" height="11" rx="1.5" fill="var(--seq-surface,#fff)"/>' +
+  /* ---- gear silhouette (computed, so the teeth are exact) ---- */
+  function gearPath(cx, cy, rTip, rRoot, teeth, phase) {
+    var pitch = Math.PI * 2 / teeth;
+    var tipHalf = 0.115, rootHalf = 0.24;
+    function pt(r, a) {
+      return (cx + r * Math.cos(a)).toFixed(1) + "," +
+             (cy + r * Math.sin(a)).toFixed(1);
+    }
+    var d = "";
+    for (var k = 0; k < teeth; k++) {
+      var a = phase + k * pitch;
+      d += (k ? "L" : "M") + pt(rRoot, a - rootHalf) +
+           " L" + pt(rTip, a - tipHalf) +
+           " L" + pt(rTip, a + tipHalf) +
+           " L" + pt(rRoot, a + rootHalf) + " ";
+    }
+    return d + "Z";
+  }
+
+  /* ---- object artwork (line art, all parts stand on y=182) ----
+     Each object carries a translucent stripe overlay (tex) that
+     mimics 3D-print layer lines. */
+  function sproutSVG(tex) {
+    var leaf1 = "M120,140 C111,139 104,133 103,124 C112,124 119,130 120,138 Z";
+    var leaf2 = "M120,131 C129,130 136,124 137,115 C128,115 121,121 120,129 Z";
+    var pot   = "M104,159 L136,159 L131,182 L109,182 Z";
+    return '<g class="seq-obj" data-name="sprout" style="display:none">' +
+      '<path class="nofill" d="M120,152 C120,144 119,136 120,127"/>' +
+      '<path d="' + leaf1 + '" fill="var(--seq-leaf,#3FA66B)"/>' +
+      '<path d="' + leaf2 + '" fill="var(--seq-leaf,#3FA66B)"/>' +
+      '<path d="' + leaf1 + '" fill="' + tex + '" style="stroke:none"/>' +
+      '<path d="' + leaf2 + '" fill="' + tex + '" style="stroke:none"/>' +
+      '<path d="' + pot + '" fill="var(--pr-object,#A6D8D2)"/>' +
+      '<path d="' + pot + '" fill="' + tex + '" style="stroke:none"/>' +
+      '<rect x="100" y="152" width="40" height="7" rx="2.5" fill="var(--pr-object,#A6D8D2)"/>' +
     '</g>';
   }
-  function treeSVG() {
+  function gearSVG(tex) {
+    var d = gearPath(120, 148, 34, 27, 9, Math.PI / 2);
+    return '<g class="seq-obj" data-name="gear" style="display:none">' +
+      '<path d="' + d + '" fill="var(--pr-object,#A6D8D2)"/>' +
+      '<path d="' + d + '" fill="' + tex + '" style="stroke:none"/>' +
+      '<circle cx="120" cy="148" r="8.5" fill="var(--seq-surface,#fff)"/>' +
+    '</g>';
+  }
+  function treeSVG(tex) {
     return '<g class="seq-obj" data-name="tree" style="display:none">' +
-      '<rect x="114" y="150" width="12" height="28" rx="2" fill="var(--seq-bark,#9A6B3F)"/>' +
-      '<circle cx="104" cy="150" r="14" fill="var(--seq-leaf,#3FA66B)"/>' +
-      '<circle cx="136" cy="150" r="14" fill="var(--seq-leaf,#3FA66B)"/>' +
-      '<circle cx="120" cy="136" r="22" fill="var(--seq-leaf,#3FA66B)"/>' +
+      '<rect x="114" y="152" width="12" height="30" rx="2" fill="var(--seq-bark,#9A6B3F)"/>' +
+      '<circle cx="104" cy="152" r="13" fill="var(--seq-leaf,#3FA66B)"/>' +
+      '<circle cx="136" cy="152" r="13" fill="var(--seq-leaf,#3FA66B)"/>' +
+      '<circle cx="120" cy="137" r="20" fill="var(--seq-leaf,#3FA66B)"/>' +
+      '<circle cx="104" cy="152" r="13" fill="' + tex + '" style="stroke:none"/>' +
+      '<circle cx="136" cy="152" r="13" fill="' + tex + '" style="stroke:none"/>' +
+      '<circle cx="120" cy="137" r="20" fill="' + tex + '" style="stroke:none"/>' +
     '</g>';
   }
-  function starSVG() {
-    return '<g class="seq-obj" data-name="star" style="display:none">' +
-      '<path d="M120,108 L128.8,131.9 L154.2,132.9 L134.3,148.6 L141.2,173.1 ' +
-        'L120,159 L98.8,173.1 L105.7,148.6 L85.8,132.9 L111.2,131.9 Z" ' +
-        'fill="var(--pr-accent,#FFC94D)"/>' +
-    '</g>';
-  }
-  function pooSVG() {
+  function pooSVG(tex) {
+    var body = "M90,182 C86,164 96,160 104,160 C98,154 100,144 110,144 " +
+      "C104,140 106,132 114,132 C110,128 112,120 120,117 " +
+      "C128,120 130,128 126,132 C134,132 136,140 130,144 " +
+      "C140,144 142,154 136,160 C144,160 154,164 150,182 Z";
     return '<g class="seq-obj" data-name="poo" style="display:none">' +
-      // lumpy 3-tier silhouette
-      '<path d="M90,178 C86,160 96,156 104,156 C98,150 100,140 110,140 ' +
-        'C104,136 106,128 114,128 C110,124 112,116 120,113 ' +
-        'C128,116 130,124 126,128 C134,128 136,136 130,140 ' +
-        'C140,140 142,150 136,156 C144,156 154,160 150,178 Z" ' +
-        'fill="var(--seq-poo,#8A5A2B)"/>' +
-      // tier swirls
-      '<path class="nofill" d="M104,156 Q120,150 136,156"/>' +
-      '<path class="nofill" d="M110,140 Q120,135 130,140"/>' +
-      // face
-      '<ellipse cx="114" cy="126" rx="4.3" ry="5.3" fill="#fff" stroke="none"/>' +
-      '<ellipse cx="126" cy="126" rx="4.3" ry="5.3" fill="#fff" stroke="none"/>' +
-      '<circle cx="114.5" cy="127" r="2.1" fill="#1a1a1a" stroke="none"/>' +
-      '<circle cx="126.5" cy="127" r="2.1" fill="#1a1a1a" stroke="none"/>' +
-      '<path d="M113,132 Q120,138 127,132" fill="none" stroke="#1a1a1a" stroke-width="2.4"/>' +
+      '<path d="' + body + '" fill="var(--seq-poo,#8A5A2B)"/>' +
+      '<path d="' + body + '" fill="' + tex + '" style="stroke:none"/>' +
+      '<path class="nofill" d="M104,160 Q120,154 136,160"/>' +
+      '<path class="nofill" d="M110,144 Q120,139 130,144"/>' +
+      '<ellipse cx="114" cy="130" rx="4.3" ry="5.3" fill="#fff" style="stroke:none"/>' +
+      '<ellipse cx="126" cy="130" rx="4.3" ry="5.3" fill="#fff" style="stroke:none"/>' +
+      '<circle cx="114.5" cy="131" r="2.1" fill="#1a1a1a" style="stroke:none"/>' +
+      '<circle cx="126.5" cy="131" r="2.1" fill="#1a1a1a" style="stroke:none"/>' +
+      '<path d="M113,136 Q120,142 127,136" style="fill:none;stroke:#1a1a1a;stroke-width:2.4"/>' +
     '</g>';
   }
 
   function svgMarkup(uid) {
-    // wireframe cabinet (one path → clean draw-on)
-    var FRAME =
-      "M36,44 L204,44 L204,192 L36,192 Z " +     // front face
-      "M36,44 L58,28 L226,28 L204,44 " +          // top face
-      "M204,192 L226,176 L226,28";                // right depth
+    var texId = "seq-tex-" + uid;
+    var tex = "url(#" + texId + ")";
     return [
       '<svg class="seq-printer" viewBox="0 0 240 240" role="img" ',
-        'aria-label="Animierter 3D-Drucker, der nacheinander verschiedene Objekte druckt" ',
-        'xmlns="http://www.w3.org/2000/svg">',
-        // cabinet + rails
-        '<path class="seq-frame seq-draw" d="', FRAME, '"/>',
-        '<path class="seq-rail seq-draw" d="M58,60 L58,176 M182,60 L182,176"/>',
-        // printed objects (grow up from the bed, one at a time)
-        '<g class="seq-stage">',
-          houseSVG(), treeSVG(), starSVG(), pooSVG(),
-        '</g>',
-        // rising hot-layer line
-        '<g class="seq-line-y"><line class="seq-line" x1="-26" y1="0" x2="26" y2="0"/></g>',
-        // print head: outer group rises in Z, inner oscillates in X
-        '<g class="seq-head-y">',
-          '<line class="seq-beam" x1="-54" y1="-22" x2="54" y2="-22"/>',
-          '<g class="seq-head-x">',
-            '<rect class="seq-carriage" x="-15" y="-32" width="30" height="16" rx="3"/>',
-            '<path class="seq-nozzle" d="M-8,-16 L8,-16 L0,0 Z"/>',
-            '<circle class="seq-glow" cx="0" cy="3" r="2.6"/>',
-          '</g>',
-        '</g>',
-        // print bed
-        '<path class="seq-bed seq-draw" d="M44,180 L196,180"/>',
-        // little sun — "Sonnenschein in sich"
-        '<g transform="translate(206,52)"><g class="seq-sun">',
-          '<circle r="7" fill="var(--pr-accent,#FFC94D)"/>',
+        'aria-label="Animierter 3D-Drucker, der mit Solarenergie nacheinander ',
+        'verschiedene Objekte druckt" xmlns="http://www.w3.org/2000/svg">',
+        /* layer-line texture for printed parts */
+        '<defs><pattern id="', texId, '" patternUnits="userSpaceOnUse" width="8" height="5">',
+          '<rect x="0" y="3.1" width="8" height="1.7" fill="var(--pr-stroke,#16201d)" opacity=".12"/>',
+        '</pattern></defs>',
+        /* background sun + dotted solar-energy feed into the printer */
+        '<g transform="translate(26,24)"><g class="seq-sun">',
+          '<circle r="8" fill="var(--pr-accent,#FFC94D)"/>',
           '<g stroke="var(--pr-accent,#FFC94D)" stroke-width="2.4" stroke-linecap="round">',
-            '<path d="M0,-13 L0,-10"/><path d="M0,10 L0,13"/><path d="M-13,0 L-10,0"/>',
-            '<path d="M10,0 L13,0"/><path d="M-9,-9 L-7,-7"/><path d="M7,7 L9,9"/>',
-            '<path d="M9,-9 L7,-7"/><path d="M-7,7 L-9,9"/>',
+            '<path d="M0,-16 L0,-11.5"/><path d="M0,11.5 L0,16"/>',
+            '<path d="M-16,0 L-11.5,0"/><path d="M11.5,0 L16,0"/>',
+            '<path d="M-11.3,-11.3 L-8.1,-8.1"/><path d="M8.1,8.1 L11.3,11.3"/>',
+            '<path d="M11.3,-11.3 L8.1,-8.1"/><path d="M-8.1,8.1 L-11.3,11.3"/>',
           '</g>',
         '</g></g>',
+        '<path class="seq-energy" d="M38,38 Q52,42 57,54"/>',
+        /* gantry frame: columns, top bar, base, print bed */
+        '<rect class="seq-frame seq-draw" x="52"  y="40" width="10" height="152" rx="4"/>',
+        '<rect class="seq-frame seq-draw" x="178" y="40" width="10" height="152" rx="4"/>',
+        '<rect class="seq-frame seq-draw" x="46"  y="32" width="148" height="14" rx="7"/>',
+        '<rect class="seq-frame seq-draw" x="44"  y="192" width="152" height="26" rx="8"/>',
+        '<rect class="seq-frame seq-draw" x="58"  y="183" width="124" height="9" rx="2.5"/>',
+        '<rect class="seq-detail seq-draw" x="152" y="200" width="24" height="10" rx="3"/>',
+        '<circle class="seq-detail seq-draw" cx="142" cy="205" r="4"/>',
+        /* printed objects (revealed bottom-up, one at a time) */
+        '<g class="seq-stage">',
+          sproutSVG(tex), gearSVG(tex), treeSVG(tex), pooSVG(tex),
+        '</g>',
+        /* rising hot-layer line */
+        '<g class="seq-line-y"><line class="seq-line" x1="-30" y1="0" x2="30" y2="0"/></g>',
+        /* tool head: outer group rises in Z, inner oscillates in X;
+           nozzle tip sits at local y=0 */
+        '<g class="seq-head-y">',
+          '<rect class="seq-beam" x="-58" y="-31" width="116" height="9" rx="4.5"/>',
+          '<rect class="seq-slider" x="-69" y="-34" width="14" height="15" rx="3"/>',
+          '<rect class="seq-slider" x="55"  y="-34" width="14" height="15" rx="3"/>',
+          '<g class="seq-head-x">',
+            '<rect class="seq-carriage" x="-14" y="-38" width="28" height="18" rx="4"/>',
+            '<path class="seq-nozzle" d="M-8,-20 L8,-20 L4,-9 L-4,-9 Z"/>',
+            '<path class="seq-nozzle" d="M-4,-9 L4,-9 L0,-1 Z"/>',
+            '<circle class="seq-glow" cx="0" cy="1.5" r="2.8"/>',
+          '</g>',
+        '</g>',
       '</svg>'
     ].join("");
   }
@@ -167,43 +239,47 @@
     });
   }
 
-  var BED_Y = 180;
-
   function setHead(ctx, y) {
     ctx.headY.style.transform = "translate(120px," + y + "px)";
     ctx.lineY.style.transform = "translate(120px," + y + "px)";
   }
 
+  var CLIP_HIDDEN = "inset(100% 0% 0% 0%)";
+  var CLIP_SHOWN  = "inset(0% 0% 0% 0%)";
+
   function showStatic(ctx, idx) {
     ctx.objEls.forEach(function (g, i) {
       g.style.display = (i === idx) ? "inline" : "none";
-      g.style.transform = (i === idx) ? "scaleY(1)" : "scaleY(0)";
+      g.style.clipPath = "none";
       g.style.opacity = 1;
+      g.style.transform = "none";
     });
     setHead(ctx, OBJECTS[idx].top);
     ctx.lineY.style.opacity = 0;
   }
 
-  function runCycle(ctx) {
-    if (!ctx.running) return;
+  function runCycle(ctx, token) {
+    if (!ctx.running || token !== ctx.token) return;
     var idx = ctx.idx;
     var meta = OBJECTS[idx];
     var g = ctx.objEls[idx];
 
-    // present current object, reset stage
+    // present current object, reset stage; head starts on the bed
+    ctx.svg.classList.remove("seq-idle");
     ctx.objEls.forEach(function (el, i) {
       el.style.display = (i === idx) ? "inline" : "none";
       el.style.opacity = 1;
-      el.style.transform = "scaleY(0)";
+      el.style.transform = "none";
+      el.style.clipPath = CLIP_HIDDEN;
     });
     ctx.lineY.style.opacity = 1;
     setHead(ctx, BED_Y);
     void ctx.svg.getBoundingClientRect(); // reflow
 
-    var D = 1250; // print duration per object
+    var D = 1500; // print duration per object — steady, like a real print
     var lin = "linear";
     var growA = g.animate(
-      [{ transform: "scaleY(0)" }, { transform: "scaleY(1)" }],
+      [{ clipPath: CLIP_HIDDEN }, { clipPath: CLIP_SHOWN }],
       { duration: D, easing: lin, fill: "forwards" });
     ctx.headY.animate(
       [{ transform: "translate(120px," + BED_Y + "px)" },
@@ -215,19 +291,22 @@
       { duration: D, easing: lin, fill: "forwards" });
 
     growA.finished.then(function () {
+      if (!ctx.running || token !== ctx.token) return Promise.reject();
+      ctx.svg.classList.add("seq-idle"); // motors stop while we admire the part
       ctx.lineY.animate([{ opacity: 1 }, { opacity: 0 }],
         { duration: 180, fill: "forwards" });
-      return wait(320); // hold the finished part
+      return wait(420); // hold the finished part
     }).then(function () {
+      if (!ctx.running || token !== ctx.token) return Promise.reject();
       var ej = g.animate(
-        [{ opacity: 1, transform: "scaleY(1)" },
-         { opacity: 0, transform: "translateY(-7px) scale(1.07)" }],
-        { duration: 360, easing: "cubic-bezier(.4,0,.6,1)", fill: "forwards" });
+        [{ opacity: 1, transform: "translateY(0px)" },
+         { opacity: 0, transform: "translateY(-12px)" }],
+        { duration: 380, easing: "cubic-bezier(.4,0,.7,1)", fill: "forwards" });
       return ej.finished;
     }).then(function () {
       ctx.idx = (idx + 1) % OBJECTS.length;
-      runCycle(ctx);
-    }).catch(function () { /* animation cancelled */ });
+      runCycle(ctx, token);
+    }).catch(function () { /* animation cancelled / loop stopped */ });
   }
 
   function build(el) {
@@ -240,20 +319,29 @@
       lineY: svg.querySelector(".seq-line-y"),
       objEls: Array.prototype.slice.call(svg.querySelectorAll(".seq-obj")),
       idx: 0,
-      running: false
+      token: 0,
+      running: false,
+      startedOnce: false
     };
 
     measureDraw(svg);
+    setHead(ctx, BED_Y);
+    ctx.lineY.style.opacity = 0;
 
     if (reduce || !canAnimate) {
       svg.classList.add("is-live");
-      showStatic(ctx, POO_INDEX); // a friendly static frame
+      showStatic(ctx, STATIC_INDEX); // a friendly static frame
       return;
     }
 
     function start() {
       svg.classList.add("is-live");
-      if (!ctx.running) { ctx.running = true; runCycle(ctx); }
+      if (ctx.running) return;
+      ctx.running = true;
+      var token = ++ctx.token;
+      var delay = ctx.startedOnce ? 0 : 900; // let the frame draw on first
+      ctx.startedOnce = true;
+      wait(delay).then(function () { runCycle(ctx, token); });
     }
     function stop() { ctx.running = false; }
 

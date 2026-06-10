@@ -12,24 +12,17 @@
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
     background:var(--brand-sand);color:var(--brand-ink);padding:3rem 1.25rem 5rem}
-  .wrap{max-width:1100px;margin:0 auto}
+  .wrap{max-width:760px;margin:0 auto}
   h1{font-size:clamp(1.6rem,4vw,2.4rem);letter-spacing:-.02em;margin-bottom:.4rem}
   p.lead{color:#5d6b66;max-width:46rem;margin-bottom:2.5rem}
-  .grid{display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-  .card{border-radius:20px;padding:1.25rem;border:1px solid rgba(0,0,0,.08);
+  .card{border-radius:20px;padding:1.5rem;border:1px solid rgba(0,0,0,.08);
     display:flex;flex-direction:column;align-items:center;gap:.75rem}
   .card h2{font-size:1rem;font-weight:600;letter-spacing:-.01em}
-  .stage{width:100%;max-width:320px}
+  .stage{width:100%;max-width:400px}
   .tag{font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;opacity:.6}
 
   /* V1 — Eco Clean */
   .v1{background:#ffffff;--pr-stroke:#16201d;--pr-object:var(--brand-mint);--pr-accent:var(--brand-solar)}
-  /* V2 — Bold Maker */
-  .v2{background:#FFFDF7;--pr-stroke:#14130f;--pr-object:var(--brand-mint);--pr-accent:var(--brand-solar)}
-  /* V3 — Dark Tech */
-  .v3{background:#0A0C0C;color:#EAF2F0;border-color:rgba(255,255,255,.12);
-    --pr-stroke:#cfe9e5;--pr-object:#7FE9DD;--pr-accent:var(--brand-solar);
-    --seq-surface:#0A0C0C;--seq-leaf:#5BD08A;--seq-poo:#B07A45}
 
   .note{margin-top:3rem;padding:1.25rem 1.5rem;background:#fff;border-radius:16px;
     border:1px solid rgba(0,0,0,.08);font-size:.92rem;line-height:1.6}
@@ -39,24 +32,14 @@
 <body>
   <div class="wrap">
     <h1>«Create your own product» — 3D-Drucker-Animation</h1>
-    <p class="lead">Ein schlichter Strichzeichnungs-Drucker, der nacheinander Objekte druckt —
-      Haus, Baum, Stern und der Pürzel — und jedes fertige Teil auswirft. Endlosschleife,
-      vollständig themen-fähig über die bestehenden <code>--pr-*</code>-Variablen.
-      Unten dieselbe Animation in den drei Design-Versionen.</p>
+    <p class="lead">Ein schlichter Strichzeichnungs-Drucker im Eco-Clean-Look, der
+      nacheinander Objekte druckt — Setzling, Zahnrad, Baum und der Pürzel —
+      Schicht für Schicht von unten nach oben, und jedes fertige Teil auswirft.
+      Die Sonne im Hintergrund steht für den Solarstrom, mit dem gedruckt wird.</p>
 
-    <div class="grid">
-      <div class="card v1">
-        <span class="tag">V1 · Eco Clean</span>
-        <div class="stage" data-printer-sequence></div>
-      </div>
-      <div class="card v2">
-        <span class="tag">V2 · Bold Maker</span>
-        <div class="stage" data-printer-sequence></div>
-      </div>
-      <div class="card v3">
-        <span class="tag">V3 · Dark Tech</span>
-        <div class="stage" data-printer-sequence></div>
-      </div>
+    <div class="card v1">
+      <span class="tag">V1 · Eco Clean</span>
+      <div class="stage" data-printer-sequence></div>
     </div>
 
     <div class="note">
