@@ -83,7 +83,8 @@
 
 /* ---------- Marquee ---------- */
 .marquee { border-block: 1px solid var(--line); padding: 1rem 0; overflow: hidden; white-space: nowrap; }
-.marquee__track { display: inline-flex; gap: 2rem; animation: marquee 26s linear infinite; font-family: "Space Grotesk", sans-serif; font-weight: 600; font-size: clamp(1.1rem, 2vw, 1.5rem); color: var(--muted); }
+.marquee__track { display: inline-flex; animation: marquee 26s linear infinite; font-family: "Space Grotesk", sans-serif; font-weight: 600; font-size: clamp(1.1rem, 2vw, 1.5rem); color: var(--muted); }
+.marquee__track span { margin-right: 2rem; }
 .marquee__track span:nth-child(even) { color: var(--mint-bright); }
 @keyframes marquee { to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) { .marquee__track { animation: none; } }

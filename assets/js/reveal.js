@@ -57,6 +57,18 @@
     nums.forEach(function (el) { io.observe(el); });
   }
 
+  /* ---- Marquee: fill the track so the loop never shows a gap ---- */
+  function initMarquee() {
+    document.querySelectorAll(".marquee__track").forEach(function (track) {
+      var set = track.innerHTML;
+      var target = Math.max(window.innerWidth, window.screen ? screen.width : 0);
+      var guard = 0;
+      while (track.scrollWidth < target && guard++ < 20) track.innerHTML += set;
+      track.innerHTML += track.innerHTML; // two identical halves -> -50% loops seamlessly
+      track.style.animationDuration = (track.scrollWidth / 2 / 30) + "s"; // keep ~30 px/s pace
+    });
+  }
+
   /* ---- Sticky header shadow on scroll ---- */
   function initHeader() {
     var header = document.querySelector("[data-header]");
@@ -94,6 +106,7 @@
   function init() {
     initReveals();
     initCounters();
+    initMarquee();
     initHeader();
     initNav();
   }

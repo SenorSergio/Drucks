@@ -78,7 +78,8 @@
 
 /* ---------- Marquee ---------- */
 .marquee { background: var(--text); color: #fff; padding: .9rem 0; overflow: hidden; white-space: nowrap; transform: rotate(-1.2deg); margin-block: 1.5rem; }
-.marquee__track { display: inline-flex; gap: 2.2rem; animation: marquee 22s linear infinite; font-family: "Archivo Black", sans-serif; font-size: clamp(1.1rem, 2.2vw, 1.7rem); }
+.marquee__track { display: inline-flex; animation: marquee 22s linear infinite; font-family: "Archivo Black", sans-serif; font-size: clamp(1.1rem, 2.2vw, 1.7rem); }
+.marquee__track span { margin-right: 2.2rem; }
 .marquee__track span:nth-child(5n+3) { color: var(--solar); }
 .marquee__track span:nth-child(5n+1) { color: var(--mint); }
 @keyframes marquee { to { transform: translateX(-50%); } }
