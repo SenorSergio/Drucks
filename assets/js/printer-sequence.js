@@ -2,8 +2,8 @@
    Druckts? — sequential 3D-printer animation (V1 · Eco Clean)
    "Create your own product" motif: a clean line-art gantry
    printer that prints object after object on a loop — seedling,
-   gear, tree and the poo emoji — layer by layer (bottom-up
-   reveal), then ejects each finished part. The sun sits in the
+   gear, tree and the brand's soft-serve poo — layer by layer
+   (bottom-up reveal), then ejects each finished part. The sun sits in the
    background sky and feeds the printer via a dotted energy
    line: we print with solar power.
 
@@ -34,7 +34,7 @@
     { name: "sprout", top: 114 },
     { name: "gear",   top: 114 },
     { name: "tree",   top: 116 },
-    { name: "poo",    top: 116 }   // the obligatory crowd-pleaser
+    { name: "poo",    top: 110 }   // the obligatory crowd-pleaser
   ];
   var STATIC_INDEX = 0;            // shown when motion is reduced
   var BED_Y = 182;                 // top surface of the print bed
@@ -156,20 +156,22 @@
     '</g>';
   }
   function pooSVG(tex) {
-    var body = "M90,182 C86,164 96,160 104,160 C98,154 100,144 110,144 " +
-      "C104,140 106,132 114,132 C110,128 112,120 120,117 " +
-      "C128,120 130,128 126,132 C134,132 136,140 130,144 " +
-      "C140,144 142,154 136,160 C144,160 154,164 150,182 Z";
+    // soft-serve swirl traced from the brand logo: fat drooping
+    // tip with a crease swoosh, big crest, wide melty base
+    var body = "M93,182 C89,180 87,174 87,168 C87,162 90,158 94.5,153 " +
+      "C91.5,151 90.5,147.5 91,144.5 C92,139.5 95,135.5 99,132 " +
+      "C101.5,130.8 103.5,132.5 104.5,135 C101.5,133 99.8,129 100,125 " +
+      "C100.3,119.5 103,115.5 107,113 C110,111 113.5,110 117.5,110 " +
+      "C121.5,110 125.5,110.8 129.5,113 C134.5,115.7 139.5,120 143.5,125.5 " +
+      "C146,129.5 147.5,133.5 148,137 C148,141 146.5,147 144.8,150.5 " +
+      "C147,153.5 150,157.5 152,161.5 C153.5,166 153,171 151,176 " +
+      "C149.5,179.5 147,181.5 144.8,182 Z";
     return '<g class="seq-obj" data-name="poo" style="display:none">' +
-      '<path d="' + body + '" fill="var(--seq-poo,#8A5A2B)"/>' +
+      '<path d="' + body + '" fill="var(--seq-poo,#96613A)"/>' +
       '<path d="' + body + '" fill="' + tex + '" style="stroke:none"/>' +
-      '<path class="nofill" d="M104,160 Q120,154 136,160"/>' +
-      '<path class="nofill" d="M110,144 Q120,139 130,144"/>' +
-      '<ellipse cx="114" cy="130" rx="4.3" ry="5.3" fill="#fff" style="stroke:none"/>' +
-      '<ellipse cx="126" cy="130" rx="4.3" ry="5.3" fill="#fff" style="stroke:none"/>' +
-      '<circle cx="114.5" cy="131" r="2.1" fill="#1a1a1a" style="stroke:none"/>' +
-      '<circle cx="126.5" cy="131" r="2.1" fill="#1a1a1a" style="stroke:none"/>' +
-      '<path d="M113,136 Q120,142 127,136" style="fill:none;stroke:#1a1a1a;stroke-width:2.4"/>' +
+      '<path class="nofill" d="M105.2,134.2 Q110.5,128.2 117.5,128"/>' +
+      '<path class="nofill" d="M108,148 Q117,143 126,146"/>' +
+      '<path class="nofill" d="M117,163 Q129.5,158 142,162"/>' +
     '</g>';
   }
 
