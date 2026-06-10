@@ -90,23 +90,17 @@
 /* ---------- Why ---------- */
 .why {
   position: relative;
-  background: #16201d url("../img/heiss-wird.jpg") center 58% / cover no-repeat;
-  border-radius: clamp(24px, 4vw, 48px);
-  margin-inline: clamp(0px, 2vw, 1.5rem);
-  overflow: hidden;
-  color: #fff;
+  background: url("../img/heiss-wird.jpg") center 58% / cover no-repeat;
 }
 .why::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(14,14,14,.3), rgba(14,14,14,.62));
+  background: linear-gradient(180deg, rgba(246,244,239,.94), rgba(246,244,239,.74));
 }
 .why .container { position: relative; }
-.why .section-title { color: #fff; text-shadow: 0 2px 24px rgba(0,0,0,.5); }
-.why .eyebrow--solar { color: var(--brand-solar); }
 .why__grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: clamp(2rem, 5vw, 5rem); align-items: end; }
-.why__body { font-size: clamp(1.2rem, 2.4vw, 1.9rem); line-height: 1.4; font-weight: 500; font-family: "Space Grotesk", sans-serif; color: rgba(255,255,255,.94); text-shadow: 0 1px 18px rgba(0,0,0,.45); }
+.why__body { font-size: clamp(1.2rem, 2.4vw, 1.9rem); line-height: 1.4; font-weight: 500; font-family: "Space Grotesk", sans-serif; }
 
 /* ---------- How / cards ---------- */
 .how { background: var(--surface); }
