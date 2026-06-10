@@ -184,17 +184,16 @@
         '<defs><pattern id="', texId, '" patternUnits="userSpaceOnUse" width="8" height="5">',
           '<rect x="0" y="3.1" width="8" height="1.7" fill="var(--pr-stroke,#16201d)" opacity=".12"/>',
         '</pattern></defs>',
-        /* background sun + dotted solar-energy feed into the printer */
-        '<g transform="translate(26,24)"><g class="seq-sun">',
-          '<circle r="8" fill="var(--pr-accent,#FFC94D)"/>',
+        /* background sun, set off from the printer */
+        '<g transform="translate(23,21)"><g class="seq-sun">',
+          '<circle r="7.5" fill="var(--pr-accent,#FFC94D)"/>',
           '<g stroke="var(--pr-accent,#FFC94D)" stroke-width="2.4" stroke-linecap="round">',
-            '<path d="M0,-16 L0,-11.5"/><path d="M0,11.5 L0,16"/>',
-            '<path d="M-16,0 L-11.5,0"/><path d="M11.5,0 L16,0"/>',
-            '<path d="M-11.3,-11.3 L-8.1,-8.1"/><path d="M8.1,8.1 L11.3,11.3"/>',
-            '<path d="M11.3,-11.3 L8.1,-8.1"/><path d="M-8.1,8.1 L-11.3,11.3"/>',
+            '<path d="M0,-15 L0,-11"/><path d="M0,11 L0,15"/>',
+            '<path d="M-15,0 L-11,0"/><path d="M11,0 L15,0"/>',
+            '<path d="M-10.6,-10.6 L-7.8,-7.8"/><path d="M7.8,7.8 L10.6,10.6"/>',
+            '<path d="M10.6,-10.6 L7.8,-7.8"/><path d="M-7.8,7.8 L-10.6,10.6"/>',
           '</g>',
         '</g></g>',
-        '<path class="seq-energy" d="M38,38 Q52,42 57,54"/>',
         /* gantry frame: columns, top bar, base, print bed */
         '<rect class="seq-frame seq-draw" x="52"  y="40" width="10" height="152" rx="4"/>',
         '<rect class="seq-frame seq-draw" x="178" y="40" width="10" height="152" rx="4"/>',
@@ -203,6 +202,8 @@
         '<rect class="seq-frame seq-draw" x="58"  y="183" width="124" height="9" rx="2.5"/>',
         '<rect class="seq-detail seq-draw" x="152" y="200" width="24" height="10" rx="3"/>',
         '<circle class="seq-detail seq-draw" cx="142" cy="205" r="4"/>',
+        /* dotted solar-energy feed: sun powers the printer */
+        '<path class="seq-energy" d="M34,35 Q45,39 56,39"/>',
         /* printed objects (revealed bottom-up, one at a time) */
         '<g class="seq-stage">',
           sproutSVG(tex), gearSVG(tex), treeSVG(tex), pooSVG(tex),
@@ -258,6 +259,13 @@
     ctx.lineY.style.opacity = 0;
   }
 
+  function cancelLive(ctx) {
+    // forwards-filling animations override inline styles until
+    // cancelled, so clear out the previous cycle's animations
+    ctx.live.forEach(function (a) { try { a.cancel(); } catch (e) { /* */ } });
+    ctx.live = [];
+  }
+
   function runCycle(ctx, token) {
     if (!ctx.running || token !== ctx.token) return;
     var idx = ctx.idx;
@@ -265,6 +273,7 @@
     var g = ctx.objEls[idx];
 
     // present current object, reset stage; head starts on the bed
+    cancelLive(ctx);
     ctx.svg.classList.remove("seq-idle");
     ctx.objEls.forEach(function (el, i) {
       el.style.display = (i === idx) ? "inline" : "none";
@@ -281,20 +290,21 @@
     var growA = g.animate(
       [{ clipPath: CLIP_HIDDEN }, { clipPath: CLIP_SHOWN }],
       { duration: D, easing: lin, fill: "forwards" });
-    ctx.headY.animate(
+    ctx.live.push(growA);
+    ctx.live.push(ctx.headY.animate(
       [{ transform: "translate(120px," + BED_Y + "px)" },
        { transform: "translate(120px," + meta.top + "px)" }],
-      { duration: D, easing: lin, fill: "forwards" });
-    ctx.lineY.animate(
+      { duration: D, easing: lin, fill: "forwards" }));
+    ctx.live.push(ctx.lineY.animate(
       [{ transform: "translate(120px," + BED_Y + "px)" },
        { transform: "translate(120px," + meta.top + "px)" }],
-      { duration: D, easing: lin, fill: "forwards" });
+      { duration: D, easing: lin, fill: "forwards" }));
 
     growA.finished.then(function () {
       if (!ctx.running || token !== ctx.token) return Promise.reject();
       ctx.svg.classList.add("seq-idle"); // motors stop while we admire the part
-      ctx.lineY.animate([{ opacity: 1 }, { opacity: 0 }],
-        { duration: 180, fill: "forwards" });
+      ctx.live.push(ctx.lineY.animate([{ opacity: 1 }, { opacity: 0 }],
+        { duration: 180, fill: "forwards" }));
       return wait(420); // hold the finished part
     }).then(function () {
       if (!ctx.running || token !== ctx.token) return Promise.reject();
@@ -302,6 +312,7 @@
         [{ opacity: 1, transform: "translateY(0px)" },
          { opacity: 0, transform: "translateY(-12px)" }],
         { duration: 380, easing: "cubic-bezier(.4,0,.7,1)", fill: "forwards" });
+      ctx.live.push(ej);
       return ej.finished;
     }).then(function () {
       ctx.idx = (idx + 1) % OBJECTS.length;
@@ -320,6 +331,7 @@
       objEls: Array.prototype.slice.call(svg.querySelectorAll(".seq-obj")),
       idx: 0,
       token: 0,
+      live: [],
       running: false,
       startedOnce: false
     };
