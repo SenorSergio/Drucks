@@ -52,6 +52,7 @@ Die Formulare nutzen **Netlify Forms** (`data-netlify="true"` + Honeypot) – na
 landen Einsendungen automatisch im Netlify-Dashboard unter *Forms*, ganz ohne Backend.
 
 ## Noch offen / Feinschliff
-- Echte Produkt-/Team-Fotos einsetzen (aktuell Platzhalter)
-- Echte Kontaktdaten, Social-Links und Impressum im Footer ergänzen
-- Nach der Design-Entscheidung die gewählte Version als Hauptseite übernehmen
+- Echte Referenz-Fotos für die Inspiration-Galerie einsetzen und die zwei
+  Beispiel-Posts ersetzen — Schritt-für-Schritt-Anleitung: [ANLEITUNG-POSTS.md](ANLEITUNG-POSTS.md)
+- Social-Links ergänzen, sobald vorhanden
+- Masse für «Home 2.0» nachtragen (Detail-Dialog auf aschenbecher.html)

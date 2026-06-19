@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Impressum — Druckts?</title>
-  <meta name="description" content="Impressum des Vereins «Druckts?» – nachhaltiger 3D-Druck aus Winterthur.">
-  <meta name="robots" content="noindex">
+  <title>Inspiration — Druckts?</title>
+  <meta name="description" content="Referenzen von Druckts?: Bilder echter Aufträge – so sehen unsere nachhaltigen 3D-Druck-Produkte bei Kundinnen und Kunden im Einsatz aus.">
   <link rel="icon" href="assets/svg/favicon.svg" type="image/svg+xml">
   <meta name="theme-color" content="#A6D8D2">
 
@@ -15,14 +14,6 @@
 
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/v1.css">
-  <style>
-    .legal { padding-block: clamp(7rem, 14vw, 10rem) clamp(3rem, 7vw, 5rem); }
-    .legal .container { max-width: 46rem; }
-    .legal h1 { margin-bottom: 2rem; }
-    .legal h2 { font-size: 1.25rem; margin: 2.2rem 0 .6rem; }
-    .legal p, .legal address { color: #4c5a55; font-style: normal; line-height: 1.65; }
-    .legal a { color: var(--brand-mint-600); font-weight: 600; }
-  </style>
 </head>
 <body class="v1">
   <a class="skip-link" href="#main">Zum Inhalt springen</a>
@@ -37,7 +28,7 @@
         <a href="index.html#wie">Wie</a>
         <a href="index.html#nachhaltigkeit">Nachhaltigkeit</a>
         <a href="index.html#produkte">Produkte</a>
-        <a href="inspiration.html">Inspiration</a>
+        <a href="inspiration.html" aria-current="page">Inspiration</a>
         <a href="index.html#team">Team</a>
         <a class="nav__cta" href="index.html#kontakt">Projekt anfragen</a>
       </nav>
@@ -47,41 +38,33 @@
     </div>
   </header>
 
-  <main id="main" class="legal">
-    <div class="container">
-      <h1 class="section-title">Impressum</h1>
+  <main id="main">
+    <section class="page-head">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Referenzen · Echte Aufträge</p>
+          <h1 class="section-title">Gedruckt & im Einsatz.</h1>
+          <p class="section-intro">
+            So sehen unsere Produkte bei Kundinnen und Kunden aus – bestehende Modelle
+            und individuelle Kreationen. Lass dich für dein eigenes Projekt inspirieren.
+          </p>
+        </div>
+      </div>
+    </section>
 
-      <h2>Verantwortlich für diese Website</h2>
-      <address>
-        Verein «Druckts?»<br>
-        Hobelwerkweg 45<br>
-        8404 Winterthur<br>
-        Schweiz
-      </address>
+    <section class="models" aria-label="Referenz-Posts">
+      <div class="container">
+        <div class="feed" data-posts data-fallback="message"></div>
+      </div>
+    </section>
 
-      <h2>Kontakt</h2>
-      <p>E-Mail: <a href="mailto:druckts@gmail.com">druckts@gmail.com</a></p>
-
-      <h2>Vertretungsberechtigte Personen</h2>
-      <p>Sebastian von Arburg · Alejandro Borner · Demian Kägi</p>
-
-      <h2>Haftungsausschluss</h2>
-      <p>
-        Der Verein «Druckts?» übernimmt keine Gewähr für die Richtigkeit, Vollständigkeit und
-        Aktualität der bereitgestellten Inhalte. Haftungsansprüche wegen Schäden materieller
-        oder immaterieller Art, die aus dem Zugriff oder der Nutzung bzw. Nichtnutzung der
-        veröffentlichten Informationen entstehen, werden – soweit gesetzlich zulässig –
-        ausgeschlossen.
-      </p>
-
-      <h2>Urheberrechte</h2>
-      <p>
-        Die Urheber- und alle anderen Rechte an Inhalten, Bildern oder anderen Dateien auf
-        dieser Website gehören ausschliesslich dem Verein «Druckts?» oder den speziell
-        genannten Rechtsinhabern. Für die Reproduktion ist die schriftliche Zustimmung der
-        Urheberrechtsträger im Voraus einzuholen.
-      </p>
-    </div>
+    <section class="models-cta">
+      <div class="container reveal">
+        <h2 class="section-title">Auch eine Idee im Kopf?</h2>
+        <p>Ob bestehendes Produkt oder ganz neue Kreation – schreib uns, und wir drucken deine Vision. Mit Solarstrom, versteht sich.</p>
+        <a class="btn btn--solid" href="index.html#kontakt">Jetzt anfragen</a>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
@@ -97,10 +80,10 @@
         <a href="index.html#wie">Wie wir drucken</a>
         <a href="index.html#nachhaltigkeit">Nachhaltigkeit</a>
         <a href="index.html#produkte">Produkte</a>
-        <a href="inspiration.html">Inspiration</a>
+        <a href="inspiration.html" aria-current="page">Inspiration</a>
         <a href="index.html#team">Team</a>
         <a href="index.html#kontakt">Kontakt</a>
-        <a href="impressum.html" aria-current="page">Impressum</a>
+        <a href="impressum.html">Impressum</a>
         <a href="datenschutz.html">Datenschutz</a>
       </nav>
       <div class="site-footer__meta">
@@ -111,6 +94,7 @@
   </footer>
 
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="assets/js/posts.js" defer></script>
   <script src="assets/js/reveal.js" defer></script>
 </body>
 </html>

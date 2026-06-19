@@ -6,6 +6,17 @@
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "8000"],
       "port": 8000
+    },
+    {
+      "name": "konfigurator",
+      "runtimeExecutable": "C:\\Users\\borne\\Desktop\\Coding Projects\\Druckts Website\\tool\\.venv\\Scripts\\python.exe",
+      "runtimeArgs": [
+        "-m", "uvicorn", "app.main:app",
+        "--host", "127.0.0.1",
+        "--port", "8000",
+        "--app-dir", "C:\\Users\\borne\\Desktop\\Coding Projects\\Druckts Website\\tool"
+      ],
+      "port": 8000
     }
   ]
 }

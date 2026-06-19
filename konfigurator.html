@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Konfigurator — Vom Wunsch zum Druck · Druckts?</title>
+  <meta name="description" content="Entwirf in wenigen Klicks dein eigenes 3D-Druck-Objekt: Dose, Tablett, Untersetzer, Stiftehalter oder Schlüsselanhänger – inklusive Vorschau, Druckdatei und Schätzung.">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="assets/svg/favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#A6D8D2">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/v1.css">
+  <link rel="stylesheet" href="assets/css/konfigurator.css">
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body class="v1">
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+  <header class="site-header" data-header>
+    <div class="container site-header__bar">
+      <a class="brand" href="index.html" aria-label="Druckts? Startseite">
+        <img src="assets/svg/favicon.svg" alt="" width="36" height="36">
+        <span>Druckts<span class="brand__q">?</span></span>
+      </a>
+      <nav class="nav" data-nav aria-label="Hauptnavigation">
+        <a href="index.html#wie">Wie</a>
+        <a href="index.html#nachhaltigkeit">Nachhaltigkeit</a>
+        <a href="index.html#produkte">Produkte</a>
+        <a href="inspiration.html">Inspiration</a>
+        <a href="index.html#team">Team</a>
+        <a class="nav__cta" href="index.html#kontakt">Projekt anfragen</a>
+      </nav>
+      <button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-label="Menü öffnen">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-head">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Werkzeug · Beta</p>
+          <h1 class="section-title">Vom Wunsch zum Druck.</h1>
+          <p class="section-intro">
+            Wähle eine Vorlage, stelle sie mit ein paar Schiebereglern auf deine Wünsche ein –
+            und erhalte sofort eine 3D-Vorschau, eine fertige Druckdatei und eine Schätzung zu
+            Zeit und Material. Jedes Modell wird automatisch gegen die Grenzen unseres Druckers
+            geprüft. Gefällt dir das Resultat, schickst du es uns für eine Offerte.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="studio-section">
+      <div class="container">
+        <div class="offline" id="offline" hidden>
+          <b>Der Konfigurator-Dienst läuft gerade nicht.</b><br>
+          Starte ihn lokal mit <code>uvicorn app.main:app</code> im Ordner <code>tool/</code>
+          (siehe <code>tool/README.md</code>) und lade diese Seite neu.
+        </div>
+
+        <div class="studio">
+          <!-- ============ Controls ============ -->
+          <aside class="studio__controls reveal">
+            <div class="studio__block">
+              <p class="studio__step"><b>1</b> Wähle eine Vorlage</p>
+              <div class="tpl-grid" id="tpl-grid"></div>
+            </div>
+
+            <div class="studio__block">
+              <p class="studio__step"><b>2</b> Passe sie an</p>
+              <div id="params"></div>
+            </div>
+
+            <div class="studio__block">
+              <p class="studio__step"><b>3</b> Material &amp; Farbe</p>
+              <div class="seg seg--wrap" id="material" role="group" aria-label="Material"></div>
+              <p class="ctrl__help" id="material-blurb"></p>
+              <div class="swatches" id="colors" role="group" aria-label="Farbe"></div>
+            </div>
+
+            <div class="studio__block">
+              <p class="studio__step"><b>4</b> Drucker</p>
+              <div class="seg seg--wrap" id="printer" role="group" aria-label="Drucker"></div>
+              <p class="ctrl__help" id="printer-note"></p>
+            </div>
+          </aside>
+
+          <!-- ============ Stage ============ -->
+          <div class="studio__stage reveal" style="--reveal-delay:120ms">
+            <div class="viewer">
+              <div id="viewer-canvas" style="width:100%;height:100%"></div>
+              <div class="viewer__status" id="viewer-status">Bereit …</div>
+              <div class="viewer__hint">Ziehen zum Drehen · Scrollen zum Zoomen</div>
+            </div>
+
+            <div class="result">
+              <div>
+                <div class="result__title" id="r-title">—</div>
+                <div class="result__sub" id="r-sub"></div>
+              </div>
+
+              <div class="estimate" id="r-estimate"></div>
+
+              <dl class="specs--tool" id="r-specs"></dl>
+
+              <div>
+                <p class="studio__step" style="font-size:1rem;margin-bottom:.7rem;">Automatische Prüfung</p>
+                <ul class="checks" id="r-checks"></ul>
+              </div>
+
+              <div class="notes" id="r-notes" hidden></div>
+
+              <!-- Team-only: shown when the page is opened with ?ansicht=team -->
+              <div class="team-panel" id="team-panel" hidden>
+                <p class="team-panel__label">🔒 Intern · Team-Ansicht</p>
+                <div class="estimate" id="team-price"></div>
+                <p class="ctrl__help" id="team-price-note"></p>
+              </div>
+
+              <div class="result__actions">
+                <a class="btn btn--solid btn--sm" id="dl-3mf" href="#" download>3MF herunterladen</a>
+                <a class="btn btn--ghost btn--sm" id="dl-stl" href="#" download>STL herunterladen</a>
+                <button class="btn btn--ghost btn--sm" id="precise" type="button">Genauer berechnen</button>
+                <button class="btn btn--mint btn--sm" id="send-team" type="button">An Druckts? senden</button>
+              </div>
+
+              <p class="tool-disclaimer">
+                Phase 1 (Beta): Vorlagen-Konfigurator ohne KI. Die Zeit- und Materialwerte sind
+                Schätzungen. Jede Bestellung wird von unserem Team geprüft, bevor wir eine
+                verbindliche Offerte machen.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__grid">
+      <div class="site-footer__brand">
+        <a class="brand brand--light" href="index.html">
+          <img src="assets/svg/favicon.svg" alt="" width="34" height="34">
+          <span>Druckts<span class="brand__q">?</span></span>
+        </a>
+        <p>Nachhaltiger, individueller 3D-Druck aus Winterthur. Mit ☀️ und PLA gedruckt.</p>
+      </div>
+      <nav class="site-footer__nav" aria-label="Footer">
+        <a href="index.html#wie">Wie wir drucken</a>
+        <a href="index.html#nachhaltigkeit">Nachhaltigkeit</a>
+        <a href="index.html#produkte">Produkte</a>
+        <a href="inspiration.html">Inspiration</a>
+        <a href="index.html#team">Team</a>
+        <a href="index.html#kontakt">Kontakt</a>
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+      </nav>
+      <div class="site-footer__meta">
+        <p>© <span id="year">2026</span> Druckts? · Verein mit Sitz in Winterthur</p>
+        <p>Gewinn zu 100 % für gemeinnützige Projekte.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script type="module" src="assets/js/konfigurator.js"></script>
+  <script src="assets/js/reveal.js" defer></script>
+</body>
+</html>
