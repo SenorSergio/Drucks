@@ -22,6 +22,19 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     X-Frame-Options = "SAMEORIGIN"
 
+# Inspiration gallery is built but not public yet (awaiting company consent + photos).
+# Block direct access until ready — delete these two redirects to publish it.
+[[redirects]]
+  from = "/inspiration.html"
+  to = "/"
+  status = 302
+  force = true
+[[redirects]]
+  from = "/inspiration"
+  to = "/"
+  status = 302
+  force = true
+
 # Friendly short paths for the three design versions
 [[redirects]]
   from = "/v1"
