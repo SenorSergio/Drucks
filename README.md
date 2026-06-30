@@ -55,4 +55,4 @@ landen Einsendungen automatisch im Netlify-Dashboard unter *Forms*, ganz ohne Ba
 - Echte Referenz-Fotos für die Inspiration-Galerie einsetzen und die zwei
   Beispiel-Posts ersetzen — Schritt-für-Schritt-Anleitung: [ANLEITUNG-POSTS.md](ANLEITUNG-POSTS.md)
 - Social-Links ergänzen, sobald vorhanden
-- Masse für «Home 2.0» nachtragen (Detail-Dialog auf aschenbecher.html)
+- Masse für «Resident» nachtragen (Detail-Dialog auf aschenbecher.html)
