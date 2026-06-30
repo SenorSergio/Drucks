@@ -1,15 +1,5 @@
 # Anleitung: Neuen Inspiration-Post hinzufügen
 
-> **⚠️ Status: Die Inspiration-Galerie ist aktuell NICHT öffentlich.**
-> Sie ist fertig gebaut, aber bis Einwilligung und Fotos der Firmen vorliegen offline
-> geschaltet. Wieder einschalten (zwei Schritte, am besten von Claude erledigen lassen):
-> 1. In `index.html` den auskommentierten Inspiration-Teaser-Block wiederherstellen
->    und in Kopf- **und** Fuss-Navigation aller Seiten den Link
->    `<a href="inspiration.html">Inspiration</a>` (zwischen «Produkte» und «Team») ergänzen.
-> 2. In `netlify.toml` die zwei Weiterleitungen für `/inspiration.html` und `/inspiration`
->    löschen.
-> Die Beispiel-Posts (Muster AG, Jass-Club) vorher durch echte Aufträge ersetzen.
-
 Diese Anleitung richtet sich an alle im Verein — **es sind keine Programmierkenntnisse nötig.**
 Die Galerie auf `inspiration.html` und der Teaser auf der Startseite lesen ihre Inhalte aus
 einer einzigen Datei: `assets/data/posts.json`. Ein neuer Post = ein neuer Eintrag in dieser Datei.

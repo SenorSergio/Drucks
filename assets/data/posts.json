@@ -16,22 +16,6 @@
         { "src": "assets/img/posts/yinyang-puck/puck-3.jpg", "alt": "Hand hält den geschlossenen Yin-Yang-Puck am Strand gegen den blauen Himmel" },
         { "src": "assets/img/posts/yinyang-puck/puck-1.jpg", "alt": "3D-gedruckter Taschenaschenbecher «Puck» mit schwarz-weissem Yin-Yang-Motiv auf dem Deckel" }
       ]
-    },
-    {
-      "id": "engitec-aschenbecher",
-      "kunde": "Engitec",
-      "websiteUrl": null,
-      "avatar": null,
-      "projekt": "Aschenbecher für Baustellen-Teams",
-      "caption": "Engitec stattet ihre Teams auf der Baustelle mit unseren Taschenaschenbechern aus – gedruckt aus PLA, mit Solarstrom in Winterthur.\nAsche bleibt drin, Baustelle bleibt sauber.",
-      "produktTags": [
-        { "label": "Aschenbecher", "url": "aschenbecher.html" }
-      ],
-      "produkte": ["adventurer"],
-      "bilder": [
-        { "src": "assets/img/adventurer-1.jpg", "alt": "Frisch gedruckter Taschenaschenbecher «Adventurer»" },
-        { "src": "assets/img/set-itinerants.jpg", "alt": "Die Itinerants-Aschenbecher im Grössenvergleich" }
-      ]
     }
   ]
 }
