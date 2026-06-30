@@ -2,6 +2,7 @@
 Logos.zip
 Products.zip
 _unzip/
+referenzen/
 
 # Idea-to-Print tool: Python virtual env, caches, optional portable slicer
 tool/.venv/

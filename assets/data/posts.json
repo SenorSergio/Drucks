@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "id": "yinyang-puck",
+      "kunde": "Jenny & Leonie",
+      "websiteUrl": null,
+      "avatar": null,
+      "projekt": "Matching Pucks für zwei Kampfsportlerinnen",
+      "caption": "Yin und Yang, Kampf und Ruhe: Diesen Puck hat Jenny ihrer Sparringspartnerin Leonie geschenkt. Die beiden Kampfsportlerinnen leben die Balance – auf der Matte wie in der gemeinsamen Rauchpause.\nJetzt hat jede ihren eigenen immer dabei.",
+      "produktTags": [
+        { "label": "Aschenbecher", "url": "aschenbecher.html" }
+      ],
+      "produkte": ["puck"],
+      "bilder": [
+        { "src": "assets/img/posts/yinyang-puck/puck-2.jpg", "alt": "Der geöffnete Yin-Yang-Puck im Sand am Strand, mit dem Meer im Hintergrund" },
+        { "src": "assets/img/posts/yinyang-puck/puck-3.jpg", "alt": "Hand hält den geschlossenen Yin-Yang-Puck am Strand gegen den blauen Himmel" },
+        { "src": "assets/img/posts/yinyang-puck/puck-1.jpg", "alt": "3D-gedruckter Taschenaschenbecher «Puck» mit schwarz-weissem Yin-Yang-Motiv auf dem Deckel" }
+      ]
+    },
+    {
       "id": "engitec-aschenbecher",
       "kunde": "Engitec",
       "websiteUrl": null,
@@ -10,39 +27,10 @@
       "produktTags": [
         { "label": "Aschenbecher", "url": "aschenbecher.html" }
       ],
+      "produkte": ["adventurer"],
       "bilder": [
         { "src": "assets/img/adventurer-1.jpg", "alt": "Frisch gedruckter Taschenaschenbecher «Adventurer»" },
         { "src": "assets/img/set-itinerants.jpg", "alt": "Die Itinerants-Aschenbecher im Grössenvergleich" }
-      ]
-    },
-    {
-      "id": "beispiel-reiseschach",
-      "kunde": "Muster AG",
-      "websiteUrl": "https://www.example.ch",
-      "avatar": null,
-      "projekt": "Reiseschach als Kundengeschenk",
-      "caption": "Beispiel-Post — durch echten Auftrag ersetzen.\nDie Muster AG schenkt ihren Kundinnen und Kunden ein Reiseschach aus dem 3D-Drucker – nachhaltig, magnetisch, unvergesslich.",
-      "produktTags": [
-        { "label": "Spiele", "url": "spiele.html" }
-      ],
-      "bilder": [
-        { "src": "assets/img/schach-1.jpg", "alt": "Reiseschach mit aufgestellten Figuren" },
-        { "src": "assets/img/schach-3.jpg", "alt": "Weisse Schachfiguren in Startaufstellung" },
-        { "src": "assets/img/schach-4.jpg", "alt": "Reiseschach hochkant mit magnetischen Figuren und Kartenbox" }
-      ]
-    },
-    {
-      "id": "beispiel-kartenbox",
-      "kunde": "Jass-Club Beispiel",
-      "websiteUrl": null,
-      "avatar": null,
-      "projekt": "Kartenboxen für den Vereinsabend",
-      "caption": "Beispiel-Post — durch echten Auftrag ersetzen.\nDer Jass-Club schützt seine Karten mit unserer Kartenbox – Schluss mit geknickten Ecken und ausgeleierten Schachteln.",
-      "produktTags": [
-        { "label": "Spiele", "url": "spiele.html" }
-      ],
-      "bilder": [
-        { "src": "assets/img/kartenbox-1.jpg", "alt": "Kartenbox mit magnetischem Schiebedeckel" }
       ]
     }
   ]

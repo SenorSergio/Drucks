@@ -196,6 +196,15 @@ a.product { display: block; color: inherit; }
 .specs dd { color: var(--muted); font-size: .95rem; }
 .model-modal__close { position: absolute; top: .9rem; right: .9rem; z-index: 2; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,.92); border: 1px solid var(--line); font-size: 1.4rem; line-height: 1; cursor: pointer; transition: transform .2s var(--ease); }
 .model-modal__close:hover { transform: scale(1.08); }
+.model-modal__inspo { align-self: flex-start; display: inline-flex; align-items: center; gap: .45rem; font-weight: 600; font-size: .95rem; color: var(--accent-deep); padding-bottom: 2px; border-bottom: 1px dashed var(--accent-deep); transition: color .2s var(--ease), border-color .2s var(--ease); }
+.model-modal__inspo:hover { color: var(--text); border-color: var(--text); }
+
+/* Hervorheben des Ziel-Posts, wenn man aus einer Produktseite kommt */
+.post.is-target { animation: post-target 2.4s var(--ease); }
+@keyframes post-target {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(111,185,177,0); }
+  12%, 60% { box-shadow: 0 0 0 4px var(--accent); }
+}
 @media (max-width: 900px) { .models__grid { grid-template-columns: 1fr; } .model-modal__grid { grid-template-columns: 1fr; } }
 
 /* ---------- Team ---------- */
@@ -250,7 +259,7 @@ a.product { display: block; color: inherit; }
 .feed-status { text-align: center; color: var(--muted); padding: 2.5rem 1.5rem; border: 1.5px dashed var(--line); border-radius: 22px; display: grid; gap: .8rem; }
 .feed-status__hint { font-size: .88rem; }
 
-.post { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; overflow: hidden; }
+.post { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; overflow: hidden; scroll-margin-top: 92px; }
 .post__head { display: flex; align-items: center; gap: .8rem; padding: 1rem 1.2rem; }
 .post__avatar {
   width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;

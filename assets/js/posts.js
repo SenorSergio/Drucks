@@ -162,6 +162,7 @@
 
   function buildPost(post, eagerFirst) {
     var article = el("article", "post reveal");
+    if (post.id) article.id = "post-" + post.id;
     article.appendChild(buildHead(post));
     article.appendChild(buildMedia(post, eagerFirst));
     article.appendChild(buildBody(post));
@@ -237,8 +238,22 @@
           return;
         }
         containers.forEach(function (c) { render(c, posts); });
+        scrollToHash();
       })
       .catch(function (err) { fail(containers, err, true); });
+  }
+
+  /* ---- Sprung zu einem per #post-<id> verlinkten Post (z. B. aus den
+         Produktseiten "Im Einsatz sehen") + kurzes Hervorheben ---- */
+  function scrollToHash() {
+    if (!/^#post-/.test(location.hash || "")) return;
+    var target = document.getElementById(location.hash.slice(1));
+    if (!target) return;
+    setTimeout(function () {
+      target.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+      target.classList.add("is-target");
+      setTimeout(function () { target.classList.remove("is-target"); }, 2400);
+    }, 120);
   }
 
   if (document.readyState === "loading") {
