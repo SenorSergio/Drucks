@@ -1,6 +1,22 @@
 {
   "posts": [
     {
+      "id": "lostplaces-traveller",
+      "kunde": "Jonas",
+      "websiteUrl": null,
+      "avatar": null,
+      "projekt": "Der Traveller auf Lost-Places-Tour",
+      "caption": "Jonas erkundet mit Leidenschaft Lost Places – und legt Wert darauf, sie sauber zu hinterlassen. Während er Ruinen und Nervenkitzel geniesst, kommt ihm der «Traveller» gerade recht: Die Asche bleibt drin, der verlorene Ort bleibt unberührt.\nAbenteuer ja, Spuren nein.",
+      "produktTags": [
+        { "label": "Aschenbecher", "url": "aschenbecher.html" }
+      ],
+      "produkte": ["traveler"],
+      "bilder": [
+        { "src": "assets/img/posts/lostplaces-traveller/traveller-1.jpg", "alt": "Nahaufnahme des grauen Traveller-Aschenbechers mit abgenommenem Deckel auf einer Betonmauer, daneben Jonas' Hand mit Zigarette vor einer Graffitiwand" },
+        { "src": "assets/img/posts/lostplaces-traveller/traveller-2.jpg", "alt": "Jonas sitzt rauchend auf einer Mauer in einem mit Graffiti bemalten Lost Place, der Traveller-Aschenbecher steht neben ihm" }
+      ]
+    },
+    {
       "id": "yinyang-puck",
       "kunde": "Jenny & Leonie",
       "websiteUrl": null,
