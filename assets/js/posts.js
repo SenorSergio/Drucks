@@ -153,6 +153,14 @@
       post.produktTags.forEach(function (tag) {
         var a = el("a", "product__tag", tag.label);
         a.href = tag.url;
+        if (/^https?:\/\//i.test(tag.url)) {
+          a.target = "_blank";
+          a.rel = "noopener noreferrer";
+          var ext = el("span", "post__ext", " ↗");
+          ext.setAttribute("aria-hidden", "true");
+          a.appendChild(ext);
+          a.appendChild(el("span", "sr-only", " (externe Website)"));
+        }
         tags.appendChild(a);
       });
       body.appendChild(tags);

@@ -302,6 +302,7 @@ a.post__name:hover { color: var(--accent-deep); }
 .post__caption { font-size: .97rem; }
 .post__tags { display: flex; flex-wrap: wrap; gap: .45rem; }
 .post__tags .product__tag:hover { background: var(--accent-deep); color: #fff; }
+.post__tags .product__tag .post__ext { color: inherit; }
 
 @media (max-width: 900px) { .inspiration__grid { grid-template-columns: 1fr; max-width: 560px; margin-inline: auto; } }
 

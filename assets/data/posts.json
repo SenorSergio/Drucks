@@ -1,6 +1,26 @@
 {
   "posts": [
     {
+      "id": "engitec-batteriespeicher",
+      "kunde": "engitec AG",
+      "websiteUrl": "https://engitec.ch/",
+      "avatar": "assets/img/posts/engitec-batteriespeicher/avatar.png",
+      "projekt": "Batteriespeicher trifft Waschmaschine",
+      "caption": "Wie gross ist eigentlich ein Batteriespeicher? Damit die Winterthurer Solarfirma engitec das im Kundengespräch zeigen kann, haben wir Speicher in 3D modelliert und als zweifarbige Mini-Modelle gedruckt – Waschmaschine und Trockner gleich mit, als Massstab. Ein Blick zeigt, wie viel Platz es braucht, um den eigenen Solarstrom auch abends zu nutzen.\nKlein gedruckt, gross erklärt.",
+      "produktTags": [
+        { "label": "Individuelle Produkte", "url": "index.html#produkte" },
+        { "label": "engitec.ch", "url": "https://engitec.ch/" }
+      ],
+      "produkte": [],
+      "bilder": [
+        { "src": "assets/img/posts/engitec-batteriespeicher/engitec-1.jpg", "alt": "Massstabsmodell eines grauen Batteriespeichers mit grüner LED-Leiste neben einem weissen Wasch-Trockner-Turm als Grössenvergleich" },
+        { "src": "assets/img/posts/engitec-batteriespeicher/engitec-2.jpg", "alt": "Die Modell-Familie für engitec: Wasch-Trockner-Turm, ein gestapelter Modul-Speicher und eine kleine Box mit eingeprägtem engitec-Logo" },
+        { "src": "assets/img/posts/engitec-batteriespeicher/engitec-3.jpg", "alt": "Schlankes, modular aufgebautes Speichermodell mit engitec-Logo neben dem Wasch-Trockner-Turm" },
+        { "src": "assets/img/posts/engitec-batteriespeicher/engitec-4.jpg", "alt": "Zwei graue Batteriespeicher-Modelle mit grüner LED-Leiste nebeneinander" },
+        { "src": "assets/img/posts/engitec-batteriespeicher/engitec-5.jpg", "alt": "Nahaufnahme des im 3D-Druck eingeprägten engitec-Logos auf einem Speichermodell" }
+      ]
+    },
+    {
       "id": "lostplaces-traveller",
       "kunde": "Jonas",
       "websiteUrl": null,
